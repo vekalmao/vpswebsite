@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function Home() {
-  const [step, setStep] = React.useState(1);
+  const [step, setStep] = useState(1);
 
   const handleCreateCloud = () => {
     setStep(2);

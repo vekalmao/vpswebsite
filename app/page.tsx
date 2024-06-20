@@ -117,7 +117,7 @@ const Home = () => {
               <p className="text-gray-300">Ashburn, Virginia</p>
             </div>
             <div onClick={() => handleSelectLocation('Frankfurt, Germany')} className="cursor-pointer">
-              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="Germany" width={300} height={200} className="h-24 mb-2" />
+              <Image src="https://th.bing.com/th/id/R.8d5fe6375990f2398f0bd57777f1948b?rik=eHh4g%2flw7eFlXw&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f2016%2f06%2fGermany-Flag-Free-Download-PNG.png&ehk=UVkyJSwghKhiDsat50ksD2TFtcuEegSFS7t8CHmn1GU%3d&risl=&pid=ImgRaw&r=0" alt="Germany" width={300} height={200} className="h-24 mb-2" />
               <p className="text-gray-300">Frankfurt, Germany</p>
             </div>
           </div>

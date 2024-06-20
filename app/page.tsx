@@ -113,7 +113,7 @@ const Home = () => {
           <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Select Your Location</h2>
           <div className="flex justify-center space-x-8 mb-8">
             <div onClick={() => handleSelectLocation('Ashburn, Virginia')} className="cursor-pointer">
-              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="USA" width={300} height={200} className="h-24 mb-2" />
+              <Image src="https://th.bing.com/th/id/R.589c9acbb6f6ca592d5364978883dcd6?rik=d1L7Q5ifA3SmVQ&pid=ImgRaw&r=0" alt="USA" width={300} height={200} className="h-24 mb-2" />
               <p className="text-gray-300">Ashburn, Virginia</p>
             </div>
             <div onClick={() => handleSelectLocation('Frankfurt, Germany')} className="cursor-pointer">

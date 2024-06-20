@@ -68,7 +68,7 @@ export default function Home() {
       {/* Cloud Server Setup Section */}
       {step === 1 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-purple-600">Let's Get Your New Cloud Server Setup</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-purple-600">Let&apos;s Get Your New Cloud Server Setup</h2>
           <div className="mb-4">
             <label className="block text-left mb-2 text-purple-600">Enter a name for your cloud server:</label>
             <input 

@@ -85,7 +85,7 @@ export default function Home() {
           <h2 className="text-2xl font-semibold mb-4 text-purple-600">Select Your Location</h2>
           <div className="flex justify-center space-x-8 mb-8">
             <div>
-              <img src="/images/usa.png" alt="USA" className="h-24 mb-2" />
+              <img src="https://th.bing.com/th/id/OIP.HO0IBUJz_3oGqI9zA3PklwHaD4?rs=1&pid=ImgDetMain" alt="USA" className="h-24 mb-2" />
               <p className="text-gray-600">Ashburn, Virginia</p>
             </div>
             <div>

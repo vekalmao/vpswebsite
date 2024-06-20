@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from 'react';
 import Image from 'next/image';
 
@@ -16,17 +14,17 @@ const Home = () => {
     setStep(2);
   };
 
-  const handleSelectLocation = (location) => {
+  const handleSelectLocation = (location: string) => { // Explicitly define location as string
     setSelectedLocation(location);
     setStep(3);
   };
 
-  const handleSelectCpuType = (cpuType) => {
+  const handleSelectCpuType = (cpuType: string) => { // Example: cpuType could be 'Shared' or 'Dedicated'
     setSelectedCpuType(cpuType);
     setStep(4);
   };
 
-  const handleSelectPlan = (plan) => {
+  const handleSelectPlan = (plan: string) => { // Example: plan could be 'CX-01', 'DX-01', etc.
     setSelectedPlan(plan);
     setStep(5);
   };
@@ -63,6 +61,14 @@ const Home = () => {
     { name: 'DX-06', description: 'Extreme power for specialized tasks', specifications: '128GB of RAM, 64 Cores, 3200GB of Storage' }
   ];
 
+  const additionalLocations = [
+    'Singapore (Asia)',
+    'India',
+    'New York',
+    'Europe',
+    // Add more locations as needed
+  ];
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-10 bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
       <header className="w-full max-w-5xl flex items-center justify-between mb-8">
@@ -82,7 +88,7 @@ const Home = () => {
 
       {step === 1 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Let&apos;s Get Your New Cloud Server Setup</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Let's Get Your New Cloud Server Setup</h2>
           <div className="mb-4">
             <label className="block text-left mb-2 text-blue-600">Enter a name for your cloud server:</label>
             <input 
@@ -105,14 +111,12 @@ const Home = () => {
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
           <h2 className="text-2xl font-semibold mb-4 text-blue-600">Select Your Location</h2>
           <div className="flex justify-center space-x-8 mb-8">
-            <div onClick={() => handleSelectLocation('Ashburn, Virginia')} className="cursor-pointer">
-              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="USA" width={300} height={200} className="h-24 mb-2" />
-              <p className="text-gray-600">Ashburn, Virginia</p>
-            </div>
-            <div onClick={() => handleSelectLocation('Frankfurt, Germany')} className="cursor-pointer">
-              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="Germany" width={300} height={200} className="h-24 mb-2" />
-              <p className="text-gray-600">Frankfurt, Germany</p>
-            </div>
+            {additionalLocations.map((location) => (
+              <div key={location} onClick={() => handleSelectLocation(location)} className="cursor-pointer">
+                <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt={location} width={300} height={200} className="h-24 mb-2" />
+                <p className="text-gray-600">{location}</p>
+              </div>
+            ))}
           </div>
         </section>
       )}

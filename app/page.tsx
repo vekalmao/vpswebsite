@@ -71,7 +71,7 @@ const Home = () => {
             <li>
               <button
                 className="text-white hover:text-yellow-400"
-                onClick={() => setStep(0)}
+                onClick={() => setIsRegistered(false)}
               >
                 Register
               </button>
@@ -81,7 +81,7 @@ const Home = () => {
       </header>
 
       {/* Registration Form */}
-      {!isRegistered && (
+      {isRegistered && (
         <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
           <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Create an Account to Get Started</h2>
           <div className="mb-4">
@@ -112,7 +112,7 @@ const Home = () => {
       )}
 
       {/* VPS Creation Steps */}
-      {isRegistered && (
+      {!isRegistered && (
         <>
           {step === 0 && (
             <section className="w-full max-w-5xl p-8 text-center">

@@ -9,7 +9,7 @@ export default function Home() {
   // State variables
   const [step, setStep] = useState(1);
   const [serverName, setServerName] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState<string>(''); // Specify selectedLocation as string
 
   // Event handler for advancing to step 2
   const handleCreateCloud = () => {
@@ -24,7 +24,7 @@ export default function Home() {
   };
 
   // Event handler for selecting a location and advancing to step 3
-  const handleSelectLocation = (location) => {
+  const handleSelectLocation = (location: string) => { // Specify location parameter as string
     setSelectedLocation(location);
     setStep(3);
   };

@@ -22,7 +22,7 @@ const Home = () => {
 
   const handleSelectLocation = (location: LocationType) => { // Explicitly define the type for location
     setSelectedLocation(location);
-    setStep(3);
+    setStep(3); // Move to the next step after selecting location
   };
 
   const handleSelectCpuType = (cpuType: string) => {
@@ -130,22 +130,34 @@ const Home = () => {
 
       {showSetupProcess && (
         <section className="w-full max-w-5xl p-8 text-center">
-          <h2 className="text-3xl font-semibold mb-4">Setup Your Cloud VPS</h2>
-          <p className="text-gray-600 mb-8">Follow these steps to configure your Cloud VPS.</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-            {additionalLocations.map((location) => (
-              <div key={location} onClick={() => handleSelectLocation(location)} className="cursor-pointer">
-                <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt={location} width={300} height={200} className="h-24 mb-2" />
-                <p className="text-gray-600">{location}</p>
+          {step === 3 && (
+            <>
+              <h2 className="text-3xl font-semibold mb-4">Setup Your Cloud VPS</h2>
+              <p className="text-gray-600 mb-8">Select a location for your Cloud VPS:</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                {additionalLocations.map((location) => (
+                  <div key={location} onClick={() => handleSelectLocation(location)} className="cursor-pointer">
+                    <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt={location} width={300} height={200} className="h-24 mb-2" />
+                    <p className="text-gray-600">{location}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          )}
+
+          {/* Add more steps as needed */}
+
+          <button
+            className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300"
+            onClick={handleCreateCloudVPS}
+          >
+            Cancel Setup
+          </button>
         </section>
       )}
 
-      <footer className="w-full max-w-5xl flex justify-between items-center p-8 border-t border-gray-300 mt-auto">
-        <p className="text-gray-600">&copy; 2024 LylaNodes. All rights reserved.</p>
-        <ul className="flex space-x-4">
+      <footer className="w-full max-w-5xl border-t border-gray-300 pt-8 pb-4 text-center">
+        <ul className="flex justify-center space-x-8 mb-8">
           <li><a href="#" className="text-blue-600 hover:text-purple-900">Privacy Policy</a></li>
           <li><a href="#" className="text-blue-600 hover:text-purple-900">Terms of Service</a></li>
           <li><a href="#" className="text-blue-600 hover:text-purple-900">Cookie Policy</a></li>

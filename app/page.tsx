@@ -10,6 +10,7 @@ export default function Home() {
   const [step, setStep] = useState(1);
   const [serverName, setServerName] = useState('');
   const [selectedLocation, setSelectedLocation] = useState<string>('');
+  const [selectedCpuType, setSelectedCpuType] = useState<string>(''); // State for selected CPU type
   const [selectedPlan, setSelectedPlan] = useState<string>('');
   const [vpsCreated, setVpsCreated] = useState<boolean>(false);
   const [ipv4Address, setIpv4Address] = useState<string>(''); // State for IPv4 address
@@ -32,10 +33,16 @@ export default function Home() {
     setStep(3);
   };
 
-  // Event handler for selecting a plan and advancing to step 4
+  // Event handler for selecting CPU type and advancing to step 4
+  const handleSelectCpuType = (cpuType: string) => {
+    setSelectedCpuType(cpuType);
+    setStep(4);
+  };
+
+  // Event handler for selecting a plan and advancing to step 5
   const handleSelectPlan = (plan: string) => {
     setSelectedPlan(plan);
-    setStep(4);
+    setStep(5);
   };
 
   // Event handler for submitting server setup
@@ -45,7 +52,7 @@ export default function Home() {
     setVpsCreated(true);
     const randomIpv4 = generateRandomIpv4();
     setIpv4Address(randomIpv4);
-    setStep(5); // Advance to step 5 after submission
+    setStep(6); // Advance to step 6 after submission
   };
 
   // Function to generate a random IPv4 address
@@ -133,29 +140,50 @@ export default function Home() {
 
         {step === 3 && (
           <>
-            <h2 className="text-2xl font-semibold mb-4 text-blue-600">Pick Your Plan</h2>
-            <div className="grid grid-cols-3 gap-8 mb-8">
-              {/* Display shared plans */}
-              {sharedPlans.map((plan, index) => (
-                <div key={index} className="bg-gray-100 rounded-lg p-4 cursor-pointer hover:bg-gray-200 transition duration-300" onClick={() => handleSelectPlan(plan.name)}>
-                  <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
-                  <p className="text-sm text-gray-600">{plan.description}</p>
-                  <p className="text-sm text-gray-600">{plan.specifications}</p>
-                </div>
-              ))}
-              {/* Display dedicated plans */}
-              {dedicatedPlans.map((plan, index) => (
-                <div key={index} className="bg-gray-100 rounded-lg p-4 cursor-pointer hover:bg-gray-200 transition duration-300" onClick={() => handleSelectPlan(plan.name)}>
-                  <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
-                  <p className="text-sm text-gray-600">{plan.description}</p>
-                  <p className="text-sm text-gray-600">{plan.specifications}</p>
-                </div>
-              ))}
+            <h2 className="text-2xl font-semibold mb-4 text-blue-600">Choose Your CPU Type</h2>
+            <div className="flex justify-center space-x-8 mb-8">
+              <button 
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+                onClick={() => handleSelectCpuType('Shared')}
+              >
+                Shared CPU
+              </button>
+              <button 
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+                onClick={() => handleSelectCpuType('Dedicated')}
+              >
+                Dedicated CPU
+              </button>
             </div>
           </>
         )}
 
         {step === 4 && (
+          <>
+            <h2 className="text-2xl font-semibold mb-4 text-blue-600">{selectedCpuType === 'Shared' ? 'Shared CPU' : 'Dedicated CPU'} Plans</h2>
+            <div className="grid grid-cols-2 gap-8">
+              {selectedCpuType === 'Shared' ? (
+                sharedPlans.map((plan) => (
+                  <div key={plan.name} className="bg-gray-100 rounded-lg p-4 cursor-pointer hover:bg-gray-200 transition duration-300" onClick={() => handleSelectPlan(plan.name)}>
+                    <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
+                    <p className="text-sm text-gray-600">{plan.description}</p>
+                    <p className="text-sm text-gray-600">{plan.specifications}</p>
+                  </div>
+                ))
+              ) : (
+                dedicatedPlans.map((plan) => (
+                  <div key={plan.name} className="bg-gray-100 rounded-lg p-4 cursor-pointer hover:bg-gray-200 transition duration-300" onClick={() => handleSelectPlan(plan.name)}>
+                    <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
+                    <p className="text-sm text-gray-600">{plan.description}</p>
+                    <p className="text-sm text-gray-600">{plan.specifications}</p>
+                  </div>
+                ))
+              )}
+            </div>
+          </>
+        )}
+
+        {step === 5 && (
           <>
             <h2 className="text-2xl font-semibold mb-4 text-blue-600">{selectedPlan} Details</h2>
             <div className="bg-gray-100 rounded-lg p-4">
@@ -181,7 +209,7 @@ export default function Home() {
           </>
         )}
 
-        {step === 5 && (
+        {step === 6 && (
           <>
             <h2 className="text-2xl font-semibold mb-4 text-blue-600">Your Servers</h2>
             <div className="bg-gray-100 rounded-lg p-4">

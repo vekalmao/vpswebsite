@@ -20,7 +20,7 @@ export default function Home() {
       <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
         <h2 className="text-2xl font-semibold mb-4">Ready to get started?</h2>
         <a href="/dashboard/server/create" className="block w-full max-w-xs mx-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-md shadow-md transition duration-300">
-          Let's get your new<br />cloud server setup
+          Let&apos;s get your new<br />cloud server setup
         </a>
       </section>
 

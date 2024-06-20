@@ -1,7 +1,5 @@
 "use client";
 
-
-
 import React, { useState } from 'react';
 import Image from 'next/image';
 
@@ -18,28 +16,26 @@ const Home = () => {
     setStep(2);
   };
 
-  const handleSelectLocation = (location: string) => { // Explicitly define location as string
+  const handleSelectLocation = (location) => {
     setSelectedLocation(location);
     setStep(3);
   };
 
-  const handleSelectCpuType = (cpuType: string) => { // Example: cpuType could be 'Shared' or 'Dedicated'
+  const handleSelectCpuType = (cpuType) => {
     setSelectedCpuType(cpuType);
     setStep(4);
   };
 
-  const handleSelectPlan = (plan: string) => { // Example: plan could be 'CX-01', 'DX-01', etc.
+  const handleSelectPlan = (plan) => {
     setSelectedPlan(plan);
     setStep(5);
   };
 
   const handleSubmit = () => {
-    // Assuming payment method is validated and added
     setVpsCreated(true);
     const randomIpv4 = generateRandomIpv4();
     setIpv4Address(randomIpv4);
-    // Proceed to payment method
-    setStep(7); // Step 7 could represent the payment step
+    setStep(6); // Step 6 represents the VPS created step
   };
 
   const generateRandomIpv4 = () => {
@@ -172,114 +168,46 @@ const Home = () => {
 
       {step === 5 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Review and Confirm</h2>
-          <div className="mb-4">
-            <p className="text-gray-600">Server Name: {serverName}</p>
-            <p className="text-gray-600">Location: {selectedLocation}</p>
-            <p className="text-gray-600">CPU Type: {selectedCpuType}</p>
-            <p className="text-gray-600">Plan: {selectedPlan}</p>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Review Your Choices</h2>
+          <div className="mb-4 text-left">
+            <p className="text-blue-600">Server Name: <span className="text-gray-600">{serverName}</span></p>
+            <p className="text-blue-600">Location: <span className="text-gray-600">{selectedLocation}</span></p>
+            <p className="text-blue-600">CPU Type: <span className="text-gray-600">{selectedCpuType}</span></p>
+            <p className="text-blue-600">Plan: <span className="text-gray-600">{selectedPlan}</span></p>
           </div>
           <button 
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
             onClick={handleSubmit}
           >
-            Pay Now!
+            Create VPS
           </button>
         </section>
       )}
 
       {step === 6 && vpsCreated && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Your Cloud VPS is Ready!</h2>
-          <div className="mb-4">
-            <p className="text-gray-600">Server Name: {serverName}</p>
-            <p className="text-gray-600">Location: {selectedLocation}</p>
-            <p className="text-gray-600">CPU Type: {selectedCpuType}</p>
-            <p className="text-gray-600">Plan: {selectedPlan}</p>
-            <p className="text-gray-600">IPv4 Address: {ipv4Address}</p>
-          </div>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">VPS Created Successfully!</h2>
+          <p className="text-lg mb-4 text-gray-600">Server Name: {serverName}</p>
+          <p className="text-lg mb-4 text-gray-600">Location: {selectedLocation}</p>
+          <p className="text-lg mb-4 text-gray-600">CPU Type: {selectedCpuType}</p>
+          <p className="text-lg mb-4 text-gray-600">Plan: {selectedPlan}</p>
+          <p className="text-lg mb-4 text-gray-600">IPv4 Address: {ipv4Address}</p>
           <button 
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-            onClick={() => setStep(1)}
+            onClick={() => {
+              setStep(1);
+              setServerName('');
+              setSelectedLocation('');
+              setSelectedCpuType('');
+              setSelectedPlan('');
+              setVpsCreated(false);
+              setIpv4Address('');
+            }}
           >
-            Create Another Cloud VPS
+            Create Another VPS
           </button>
         </section>
       )}
-
-      {step === 7 && !vpsCreated && (
-        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Payment Details</h2>
-          <form className="flex flex-col space-y-4 max-w-md mx-auto">
-            <div>
-              <label htmlFor="cardNumber" className="text-blue-600">Card Number:</label>
-              <input type="text" id="cardNumber" className="border border-gray-300 rounded-lg px-3 py-2 w-full" />
-            </div>
-            <div>
-              <label htmlFor="expiryDate" className="text-blue-600">Expiry Date:</label>
-              <input type="text" id="expiryDate" className="border border-gray-300 rounded-lg px-3 py-2 w-full" />
-            </div>
-            <div>
-              <label htmlFor="cvv" className="text-blue-600">CVV:</label>
-              <input type="text" id="cvv" className="border border-gray-300 rounded-lg px-3 py-2 w-full" />
-            </div>
-            <div>
-              <label htmlFor="cardName" className="text-blue-600">Name on Card:</label>
-              <input type="text" id="cardName" className="border border-gray-300 rounded-lg px-3 py-2 w-full" />
-            </div>
-            <button 
-              type="button"
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-            >
-              Submit
-            </button>
-          </form>
-        </section>
-      )}
-
-      <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-lg mb-8 text-center text-white">
-        <h2 className="text-3xl font-extrabold mb-8">Our Features</h2>
-        <p className="text-lg text-gray-300 mb-12">We offer top-tier features to all of our clients, no matter the plan! We believe in giving everyone the best experience possible.</p>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-12">
-          <div className="bg-gray-700 rounded-lg p-6 text-center shadow-md">
-            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">DDoS Protection</h3>
-            <p className="text-lg text-gray-300">Protect your server from malicious attacks.</p>
-          </div>
-          <div className="bg-gray-700 rounded-lg p-6 text-center shadow-md">
-            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Fast</h3>
-            <p className="text-lg text-gray-300">Experience lightning-fast performance.</p>
-          </div>
-          <div className="bg-gray-700 rounded-lg p-6 text-center shadow-md">
-            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Reliable</h3>
-            <p className="text-lg text-gray-300">Our servers have a 99.99% uptime guarantee.</p>
-          </div>
-          <div className="bg-gray-700 rounded-lg p-6 text-center shadow-md">
-            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Cheap</h3>
-            <p className="text-lg text-gray-300">Affordable pricing for everyone.</p>
-          </div>
-          <div className="bg-gray-700 rounded-lg p-6 text-center shadow-md">
-            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Very Fast Support</h3>
-            <p className="text-lg text-gray-300">Get help whenever you need it, 24/7.</p>
-          </div>
-        </div>
-        {step !== 7 && (
-          <button 
-            className="bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg hover:bg-yellow-500 transition duration-300"
-            onClick={() => setStep(1)}
-          >
-            Create Cloud VPS
-          </button>
-        )}
-      </section>
-
-      <footer className="w-full max-w-5xl flex items-center justify-between">
-        <p className="text-sm text-gray-600">© 2024 LylaNodes. All rights reserved.</p>
-        <div className="flex space-x-4">
-          <a href="#" className="text-blue-600 hover:text-purple-900">Privacy Policy</a>
-          <a href="#" className="text-blue-600 hover:text-purple-900">Terms of Service</a>
-          <a href="#" className="text-blue-600 hover:text-purple-900">Cookie Policy</a>
-        </div>
-      </footer>
     </main>
   );
 };

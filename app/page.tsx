@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-const Home = () => {
+const Home: React.FC = () => {
   const [step, setStep] = useState(0); // 0 for home page, then steps 1-6 for the setup process
   const [serverName, setServerName] = useState('');
   const [selectedLocation, setSelectedLocation] = useState<string>('');
@@ -130,11 +130,11 @@ const Home = () => {
           <h2 className="text-2xl font-semibold mb-4 text-blue-600">Select Your Location</h2>
           <div className="flex justify-center space-x-8 mb-8">
             <div onClick={() => handleSelectLocation('Ashburn, Virginia')} className="cursor-pointer">
-              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="USA" width={300} height={200} className="h-24 mb-2" />
+              <Image src="/images/ashburn.jpg" alt="USA" width={300} height={200} className="h-24 mb-2" />
               <p className="text-gray-600">Ashburn, Virginia</p>
             </div>
             <div onClick={() => handleSelectLocation('Frankfurt, Germany')} className="cursor-pointer">
-              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="Germany" width={300} height={200} className="h-24 mb-2" />
+              <Image src="/images/frankfurt.jpg" alt="Germany" width={300} height={200} className="h-24 mb-2" />
               <p className="text-gray-600">Frankfurt, Germany</p>
             </div>
           </div>
@@ -145,120 +145,86 @@ const Home = () => {
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
           <h2 className="text-2xl font-semibold mb-4 text-blue-600">Choose Your CPU Type</h2>
           <div className="flex justify-center space-x-8 mb-8">
-            <button 
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-              onClick={() => handleSelectCpuType('Shared')}
-            >
-              Shared CPU
-            </button>
-            <button 
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-              onClick={() => handleSelectCpuType('Dedicated')}
-            >
-              Dedicated CPU
-            </button>
+            <div onClick={() => handleSelectCpuType('Shared')} className="cursor-pointer">
+              <Image src="/images/shared-cpu.jpg" alt="Shared CPU" width={300} height={200} className="h-24 mb-2" />
+              <p className="text-gray-600">Shared</p>
+            </div>
+            <div onClick={() => handleSelectCpuType('Dedicated')} className="cursor-pointer">
+              <Image src="/images/dedicated-cpu.jpg" alt="Dedicated CPU" width={300} height={200} className="h-24 mb-2" />
+              <p className="text-gray-600">Dedicated</p>
+            </div>
           </div>
         </section>
       )}
 
       {step === 4 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">{selectedCpuType === 'Shared' ? 'Shared CPU' : 'Dedicated CPU'} Plans</h2>
-          <div className="grid grid-cols-2 gap-8">
-            {selectedCpuType === 'Shared' ? (
-              sharedPlans.map((plan) => (
-                <div key={plan.name} className="bg-gray-100 rounded-lg p-4 cursor-pointer hover:bg-gray-200 transition duration-300" onClick={() => handleSelectPlan(plan.name)}>
-                  <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
-                  <p className="text-sm text-gray-600">{plan.description}</p>
-                  <p className="text-sm text-gray-600">{plan.specifications}</p>
-                </div>
-              ))
-            ) : (
-              dedicatedPlans.map((plan) => (
-                <div key={plan.name} className="bg-gray-100 rounded-lg p-4 cursor-pointer hover:bg-gray-200 transition duration-300" onClick={() => handleSelectPlan(plan.name)}>
-                  <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
-                  <p className="text-sm text-gray-600">{plan.description}</p>
-                  <p className="text-sm text-gray-600">{plan.specifications}</p>
-                </div>
-              ))
-            )}
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Select a Plan</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {selectedCpuType === 'Shared' && sharedPlans.map(plan => (
+              <div 
+                key={plan.name} 
+                onClick={() => handleSelectPlan(plan.name)} 
+                className="cursor-pointer bg-gray-100 rounded-lg p-6 text-center"
+              >
+                <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
+                <p className="text-gray-600">{plan.description}</p>
+                <p className="text-gray-600">{plan.specifications}</p>
+              </div>
+            ))}
+            {selectedCpuType === 'Dedicated' && dedicatedPlans.map(plan => (
+              <div 
+                key={plan.name} 
+                onClick={() => handleSelectPlan(plan.name)} 
+                className="cursor-pointer bg-gray-100 rounded-lg p-6 text-center"
+              >
+                <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
+                <p className="text-gray-600">{plan.description}</p>
+                <p className="text-gray-600">{plan.specifications}</p>
+              </div>
+            ))}
           </div>
         </section>
       )}
 
       {step === 5 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Confirm Your Selections</h2>
-          <p className="text-lg text-gray-600 mb-4">
-            Server Name: <span className="font-semibold">{serverName}</span>
-          </p>
-          <p className="text-lg text-gray-600 mb-4">
-            Location: <span className="font-semibold">{selectedLocation}</span>
-          </p>
-          <p className="text-lg text-gray-600 mb-4">
-            CPU Type: <span className="font-semibold">{selectedCpuType}</span>
-          </p>
-          <p className="text-lg text-gray-600 mb-4">
-            Plan: <span className="font-semibold">{selectedPlan}</span>
-          </p>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Review and Submit</h2>
+          <div className="mb-4 text-left text-blue-600">
+            <p><strong>Server Name:</strong> {serverName}</p>
+            <p><strong>Location:</strong> {selectedLocation}</p>
+            <p><strong>CPU Type:</strong> {selectedCpuType}</p>
+            <p><strong>Plan:</strong> {selectedPlan}</p>
+          </div>
           <button 
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
             onClick={handleSubmit}
           >
-            Create Cloud VPS
+            Create VPS
           </button>
         </section>
       )}
 
-      {step === 6 && (
+      {step === 6 && vpsCreated && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Cloud VPS Created Successfully!</h2>
-          <p className="text-lg text-gray-600 mb-4">
-            Server Name: <span className="font-semibold">{serverName}</span>
-          </p>
-          <p className="text-lg text-gray-600 mb-4">
-            Location: <span className="font-semibold">{selectedLocation}</span>
-          </p>
-          <p className="text-lg text-gray-600 mb-4">
-            CPU Type: <span className="font-semibold">{selectedCpuType}</span>
-          </p>
-          <p className="text-lg text-gray-600 mb-4">
-            Plan: <span className="font-semibold">{selectedPlan}</span>
-          </p>
-          <p className="text-lg text-gray-600 mb-4">
-            IPv4 Address: <span className="font-semibold">{ipv4Address}</span>
-          </p>
-          <p className="text-lg text-gray-600 mb-4">
-            <Image src="/success-icon.png" alt="Success" width={100} height={100} />
-          </p>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Your VPS has been created!</h2>
+          <div className="mb-4 text-left text-blue-600">
+            <p><strong>Server Name:</strong> {serverName}</p>
+            <p><strong>Location:</strong> {selectedLocation}</p>
+            <p><strong>CPU Type:</strong> {selectedCpuType}</p>
+            <p><strong>Plan:</strong> {selectedPlan}</p>
+            <p><strong>IPv4 Address:</strong> {ipv4Address}</p>
+          </div>
           <button 
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-            onClick={() => setStep(1)}
+            onClick={() => setStep(0)}
           >
-            Create Another Cloud VPS
+            Create Another VPS
           </button>
         </section>
       )}
-
-      <footer className="mt-16 mb-4 text-center text-gray-500 text-sm">
-        <p>&copy; 2019 - 2024 - All Rights Reserved. Made with ❤️ by LylaNodes</p>
-        <div className="mt-4 flex justify-center space-x-4">
-          <a href="#" className="hover:text-blue-900 dark:hover:text-blue-600">About</a>
-          <a href="#" className="hover:text-blue-900 dark:hover:text-blue-600">Contact</a>
-          <a href="#" className="hover:text-blue-900 dark:hover:text-blue-600">Resources</a>
-          <a href="#" className="hover:text-blue-900 dark:hover:text-blue-600">Features</a>
-          <a href="#" className="hover:text-blue-900 dark:hover:text-blue-600">Pricing</a>
-          <a href="#" className="hover:text-blue-900 dark:hover:text-blue-600">Services</a>
-        </div>
-        <div className="mt-2 flex justify-center space-x-4">
-          <a href="#" className="hover:text-blue-900 dark:hover:text-blue-600">Legal</a>
-          <a href="#" className="hover:text-blue-900 dark:hover:text-blue-600">Privacy Policy</a>
-          <a href="#" className="hover:text-blue-900 dark:hover:text-blue-600">Terms of Service</a>
-          <a href="#" className="hover:text-blue-900 dark:hover:text-blue-600">Imprint</a>
-        </div>
-      </footer>
     </main>
   );
-}
+};
 
 export default Home;

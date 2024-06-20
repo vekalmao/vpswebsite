@@ -1,7 +1,7 @@
 import React from 'react'; // Import React
 
 export default function Home() {
-  const [step, setStep] = React.useState(1); // Use React.useState instead of useState
+  const [step, setStep] = React.useState(1); // Using React.useState instead of useState
 
   const handleCreateCloud = () => {
     setStep(2); // Proceed to step 2 on button click

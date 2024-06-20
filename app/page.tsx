@@ -1,8 +1,19 @@
 import React from 'react'; // Import React
 
 export default function Home() {
-  const [step, setStep] = React.useState(1); // Using React.useState instead of useState
+  const [step, setStep] = React.useState(1); // State to manage steps
 
+  // Function to handle clicking "Create Cloud Server" button
+  const handleCreateCloud = () => {
+    setStep(2); // Proceed to step 2
+  };
+
+  // Function to handle clicking "Previous" button
+  const handlePrevious = () => {
+    setStep(1); // Go back to step 1
+  };
+
+  // Rendering based on step
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-10 bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
       {/* Header */}
@@ -25,42 +36,26 @@ export default function Home() {
       <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
         <h2 className="text-2xl font-semibold mb-4">TrestHost</h2>
         <p className="text-sm mb-4">Your Premier VPS Hosting Solution. Elevate Your Web Presence with Top-Tier Services!</p>
-
-        {/* Create Cloud Button */}
+        
+        {/* Render based on step */}
         {step === 1 && (
-          <button
-            onClick={() => setStep(2)} // Proceed to step 2 on button click
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300"
-          >
+          <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600" onClick={handleCreateCloud}>
             Create Cloud Server
           </button>
         )}
 
-        {/* Step 2: Cloud Server Configuration */}
         {step === 2 && (
-          <div className="text-left">
-            <h3 className="text-blue-500 text-xl font-semibold mb-4">Let&apos;s get your new cloud server setup</h3>
-            <button
-              onClick={() => setStep(1)} // Go back to step 1
-              className="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-md shadow-md mr-4 transition duration-300"
-            >
+          <div>
+            <h3 className="text-xl font-semibold mb-4 text-blue-500">Let's get your new cloud server setup</h3>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mr-4" onClick={handlePrevious}>
               Previous
             </button>
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300"
-            >
+            <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
               Cloud Server Configuration
             </button>
-
-            {/* Input for Cloud Server Name */}
             <div className="mt-4">
-              <label htmlFor="cloudServerName" className="block text-sm font-semibold mb-2">Enter a name for your cloud server:</label>
-              <input
-                type="text"
-                id="cloudServerName"
-                name="cloudServerName"
-                className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500"
-              />
+              <label htmlFor="serverName" className="block text-left mb-2">Enter a name for your cloud server:</label>
+              <input type="text" id="serverName" name="serverName" className="border border-gray-300 px-3 py-2 rounded-md w-full" />
             </div>
           </div>
         )}

@@ -16,7 +16,7 @@ export default function Home() {
       <header className="w-full max-w-5xl flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold">LylaNodes</h1>
-          <p className="text-sm">/ VirtuHost</p>
+          <p className="text-sm">/VirtuHost</p>
         </div>
         <nav>
           <ul className="flex space-x-4">
@@ -30,7 +30,7 @@ export default function Home() {
 
       {/* Main Content */}
       <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-        <h2 className="text-2xl font-semibold mb-4">TrestHost</h2>
+        <h2 className="text-2xl font-semibold mb-4">VirtuHost</h2>
         <p className="text-sm mb-4">Your Premier VPS Hosting Solution. Elevate Your Web Presence with Top-Tier Services!</p>
         <div className="grid grid-cols-2 gap-8">
           <a href="#" className="bg-gray-100 rounded-lg p-6 hover:bg-gray-200 transition duration-300">

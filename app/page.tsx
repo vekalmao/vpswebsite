@@ -31,7 +31,7 @@ export default function Home() {
 
       {/* Main Content */}
       <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-        <h2 className="text-2xl font-semibold mb-4">TrestHost</h2>
+        <h2 className="text-2xl font-semibold mb-4">VirtuHost</h2>
         <p className="text-sm mb-4">Your Premier VPS Hosting Solution. Elevate Your Web Presence with Top-Tier Services!</p>
 
         {/* Create Cloud Button */}
@@ -70,13 +70,6 @@ export default function Home() {
                 className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500"
               />
             </div>
-          </div>
-        )}
-
-        {/* Placeholder for future options */}
-        {step === 3 && (
-          <div>
-            <h3 className="text-blue-500 text-xl font-semibold mb-4">Coming soon. Option coming soon.</h3>
           </div>
         )}
       </section>

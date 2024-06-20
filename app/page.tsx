@@ -80,10 +80,23 @@ const Home = () => {
 
       {step === 0 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Welcome to LylaNodes VirtuHost</h2>
-          <p className="text-lg text-gray-600 mb-4">Create your cloud VPS quickly and easily.</p>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Our Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-gray-100 rounded-lg p-6 text-center">
+              <h3 className="text-xl font-semibold mb-2 text-blue-600">VPS Hosting</h3>
+              <p className="text-gray-600">Starting at $5.50/month</p>
+            </div>
+            <div className="bg-gray-100 rounded-lg p-6 text-center">
+              <h3 className="text-xl font-semibold mb-2 text-blue-600">Game Hosting</h3>
+              <p className="text-gray-600">Starting at $4.40/month</p>
+            </div>
+            <div className="bg-gray-100 rounded-lg p-6 text-center">
+              <h3 className="text-xl font-semibold mb-2 text-blue-600">Lavalink Hosting</h3>
+              <p className="text-gray-600">Soon</p>
+            </div>
+          </div>
           <button 
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 mt-8"
             onClick={() => setStep(1)}
           >
             Create Cloud VPS
@@ -215,20 +228,12 @@ const Home = () => {
           <p className="text-lg text-gray-600 mb-4">
             IPv4 Address: <span className="font-semibold">{ipv4Address}</span>
           </p>
-          <Image src="/success-icon.png" alt="Success" width={100} height={100} />
+          <p className="text-lg text-gray-600 mb-4">
+            <Image src="/success-icon.png" alt="Success" width={100} height={100} />
+          </p>
           <button 
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 mt-4"
-            onClick={() => {
-              // Reset all state variables to initial values
-              setServerName('');
-              setSelectedLocation('');
-              setSelectedCpuType('');
-              setSelectedPlan('');
-              setVpsCreated(false);
-              setIpv4Address('');
-              // Go back to the home page
-              setStep(0);
-            }}
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            onClick={() => setStep(1)}
           >
             Create Another Cloud VPS
           </button>

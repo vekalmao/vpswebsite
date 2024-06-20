@@ -1,4 +1,4 @@
-"use client";
+"use state";
 
 import React, { useState } from 'react';
 import Image from 'next/image';
@@ -13,6 +13,8 @@ const Home = () => {
   const [selectedPlan, setSelectedPlan] = useState<any>(''); // Adjust the type as per your plan object
   const [vpsCreated, setVpsCreated] = useState<boolean>(false);
   const [ipv4Address, setIpv4Address] = useState<string>('');
+
+  const [showSetupProcess, setShowSetupProcess] = useState<boolean>(false); // State to control the visibility of setup process
 
   const handleSaveServerName = () => {
     setStep(2);
@@ -48,6 +50,7 @@ const Home = () => {
     setSelectedPlan('');
     setVpsCreated(false);
     setIpv4Address('');
+    setShowSetupProcess(true); // Show setup process when button is clicked
   };
 
   const handleCreateCloudVPS = () => {
@@ -57,6 +60,7 @@ const Home = () => {
     setSelectedLocation(''); // Reset selected location
     setSelectedCpuType(''); // Reset selected CPU type
     setSelectedPlan(''); // Reset selected plan
+    setShowSetupProcess(false); // Hide setup process when button is clicked
   };
 
   const generateRandomIpv4 = () => {
@@ -131,31 +135,13 @@ const Home = () => {
       <section className="text-center mb-8">
         <button
           className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300"
-          onClick={handleCreateCloudVPS}
+          onClick={handleSetupCloudVPS}
         >
-          Create Cloud VPS
+          Setup Cloud VPS
         </button>
       </section>
 
-      <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-left">
-        <h2 className="text-3xl font-semibold mb-4 text-yellow-400">Our Features</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-gray-700 p-6 rounded-lg shadow-md text-left">
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">DDoS Protection</h3>
-            <p className="text-gray-300">We provide DDoS protection to ensure your server remains operational even under attack.</p>
-          </div>
-          <div className="bg-gray-700 p-6 rounded-lg shadow-md text-left">
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Fast Response Times</h3>
-            <p className="text-gray-300">Our servers are optimized for quick response times to keep your applications running smoothly.</p>
-          </div>
-          <div className="bg-gray-700 p-6 rounded-lg shadow-md text-left">
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Scalable Infrastructure</h3>
-            <p className="text-gray-300">Easily scale your infrastructure as your business grows with our flexible hosting solutions.</p>
-          </div>
-        </div>
-      </section>
-
-      {step === 1 && (
+      {showSetupProcess && (
         <section className="w-full max-w-5xl p-8 text-center">
           <h2 className="text-3xl font-semibold mb-4">Setup Your Cloud VPS</h2>
           <p className="text-gray-600 mb-8">Follow these steps to configure your Cloud VPS.</p>

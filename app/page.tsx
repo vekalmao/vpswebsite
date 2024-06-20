@@ -1,6 +1,5 @@
 "use client";
 
-
 import React, { useState } from 'react';
 import Image from 'next/image';
 
@@ -69,6 +68,14 @@ const Home = () => {
             <li><a href="#" className="text-white hover:text-yellow-400">Services</a></li>
             <li><a href="#" className="text-white hover:text-yellow-400">Features</a></li>
             <li><a href="#" className="text-white hover:text-yellow-400">Company</a></li>
+            <li>
+              <button
+                className="text-white hover:text-yellow-400"
+                onClick={() => setStep(0)}
+              >
+                Register
+              </button>
+            </li>
           </ul>
         </nav>
       </header>

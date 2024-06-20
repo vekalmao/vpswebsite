@@ -1,7 +1,5 @@
-// Import Image component from next/image
 import Image from 'next/image';
 
-// Define the Home component
 export default function Home() {
   const [step, setStep] = React.useState(1); // Using React.useState instead of useState
 

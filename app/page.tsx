@@ -1,39 +1,34 @@
-// Add the "use client" directive at the top of the file
-"use client";
+// page.tsx
 
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
-export default function Home({ initialFormData }) {
-  const [step, setStep] = useState(1);
+const Home = () => {
   const [signupSuccess, setSignupSuccess] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: initialFormData.firstName || '',
-    lastName: initialFormData.lastName || '',
-    email: initialFormData.email || '',
-    password: initialFormData.password || ''
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
   });
 
-  const handleCreateCloud = () => {
-    setStep(2);
-  };
-
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
+
     // Simulating signup process with a timeout
     setTimeout(() => {
       setSignupSuccess(true);
     }, 2000); // Simulating a 2-second delay for signup process
   };
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
   if (signupSuccess) {
-    return <Redirect to="/" />; // Redirect to the home page after successful signup
+    // Redirect after successful signup (replace '/' with your desired route)
+    return <Redirect to="/" />;
   }
 
   return (
@@ -57,7 +52,7 @@ export default function Home({ initialFormData }) {
       {/* Main Content */}
       <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
         <h2 className="text-2xl font-semibold mb-4">Signup for TrestHost</h2>
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label htmlFor="firstName" className="block text-left mb-2">First Name</label>
             <input type="text" id="firstName" name="firstName" className="border border-gray-300 rounded-lg px-3 py-2 w-full" onChange={handleInputChange} value={formData.firstName} required />
@@ -67,7 +62,7 @@ export default function Home({ initialFormData }) {
             <input type="text" id="lastName" name="lastName" className="border border-gray-300 rounded-lg px-3 py-2 w-full" onChange={handleInputChange} value={formData.lastName} required />
           </div>
           <div className="col-span-2">
-            <label htmlFor="email" className="block text-left mb-2">Enter Email:</label>
+            <label htmlFor="email" className="block text-left mb-2">Email</label>
             <input type="email" id="email" name="email" className="border border-gray-300 rounded-lg px-3 py-2 w-full" onChange={handleInputChange} value={formData.email} required />
           </div>
           <div className="col-span-2">
@@ -102,4 +97,6 @@ export default function Home({ initialFormData }) {
       </footer>
     </main>
   );
-}
+};
+
+export default Home;

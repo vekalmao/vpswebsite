@@ -16,17 +16,17 @@ const Home = () => {
     setStep(2);
   };
 
-  const handleSelectLocation = (location: string) => { // Explicitly define location as string
+  const handleSelectLocation = (location) => { // Explicitly define location as string
     setSelectedLocation(location);
     setStep(3);
   };
 
-  const handleSelectCpuType = (cpuType: string) => { // Example: cpuType could be 'Shared' or 'Dedicated'
+  const handleSelectCpuType = (cpuType) => { // Example: cpuType could be 'Shared' or 'Dedicated'
     setSelectedCpuType(cpuType);
     setStep(4);
   };
 
-  const handleSelectPlan = (plan: string) => { // Example: plan could be 'CX-01', 'DX-01', etc.
+  const handleSelectPlan = (plan) => { // Example: plan could be 'CX-01', 'DX-01', etc.
     setSelectedPlan(plan);
     setStep(5);
   };
@@ -61,14 +61,6 @@ const Home = () => {
     { name: 'DX-04', description: 'High-performance for intensive tasks', specifications: '32GB of RAM, 16 Cores, 800GB of Storage' },
     { name: 'DX-05', description: 'Ultimate for enterprise-grade solutions', specifications: '64GB of RAM, 32 Cores, 1600GB of Storage' },
     { name: 'DX-06', description: 'Extreme power for specialized tasks', specifications: '128GB of RAM, 64 Cores, 3200GB of Storage' }
-  ];
-
-  const additionalLocations = [
-    'Singapore (Asia)',
-    'India',
-    'New York',
-    'Europe',
-    // Add more locations as needed
   ];
 
   return (
@@ -113,12 +105,14 @@ const Home = () => {
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
           <h2 className="text-2xl font-semibold mb-4 text-blue-600">Select Your Location</h2>
           <div className="flex justify-center space-x-8 mb-8">
-            {additionalLocations.map((location) => (
-              <div key={location} onClick={() => handleSelectLocation(location)} className="cursor-pointer">
-                <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt={location} width={300} height={200} className="h-24 mb-2" />
-                <p className="text-gray-600">{location}</p>
-              </div>
-            ))}
+            <div onClick={() => handleSelectLocation('Ashburn, Virginia')} className="cursor-pointer">
+              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="Ashburn, Virginia" width={300} height={200} className="h-24 mb-2" />
+              <p className="text-gray-600">Ashburn, Virginia</p>
+            </div>
+            <div onClick={() => handleSelectLocation('Frankfurt, Germany')} className="cursor-pointer">
+              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="Frankfurt, Germany" width={300} height={200} className="h-24 mb-2" />
+              <p className="text-gray-600">Frankfurt, Germany</p>
+            </div>
           </div>
         </section>
       )}
@@ -149,16 +143,16 @@ const Home = () => {
           <div className="grid grid-cols-2 gap-8">
             {selectedCpuType === 'Shared' ? (
               sharedPlans.map((plan) => (
-                <div key={plan.name} className="bg-gray-100 rounded-lg p-4 cursor-pointer hover:bg-gray-200 transition duration-300" onClick={() => handleSelectPlan(plan.name)}>
-                  <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
+                <div key={plan.name} onClick={() => handleSelectPlan(plan.name)} className="cursor-pointer bg-gray-100 rounded-lg p-4 transition duration-300 hover:bg-blue-100">
+                  <h3 className="text-lg font-semibold text-blue-600">{plan.name}</h3>
                   <p className="text-sm text-gray-600">{plan.description}</p>
                   <p className="text-sm text-gray-600">{plan.specifications}</p>
                 </div>
               ))
             ) : (
               dedicatedPlans.map((plan) => (
-                <div key={plan.name} className="bg-gray-100 rounded-lg p-4 cursor-pointer hover:bg-gray-200 transition duration-300" onClick={() => handleSelectPlan(plan.name)}>
-                  <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
+                <div key={plan.name} onClick={() => handleSelectPlan(plan.name)} className="cursor-pointer bg-gray-100 rounded-lg p-4 transition duration-300 hover:bg-blue-100">
+                  <h3 className="text-lg font-semibold text-blue-600">{plan.name}</h3>
                   <p className="text-sm text-gray-600">{plan.description}</p>
                   <p className="text-sm text-gray-600">{plan.specifications}</p>
                 </div>
@@ -170,114 +164,39 @@ const Home = () => {
 
       {step === 5 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Review and Confirm</h2>
-          <div className="mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Confirm Your Selections</h2>
+          <div className="flex flex-col items-center space-y-4">
             <p className="text-gray-600">Server Name: {serverName}</p>
             <p className="text-gray-600">Location: {selectedLocation}</p>
             <p className="text-gray-600">CPU Type: {selectedCpuType}</p>
             <p className="text-gray-600">Plan: {selectedPlan}</p>
-          </div>
-          <button 
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-            onClick={handleSubmit}
-          >
-            Pay Now!
-          </button>
-        </section>
-      )}
-
-      {step === 6 && vpsCreated && (
-        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Your Cloud VPS is Ready!</h2>
-          <div className="mb-4">
-            <p className="text-gray-600">Server Name: {serverName}</p>
-            <p className="text-gray-600">Location: {selectedLocation}</p>
-            <p className="text-gray-600">CPU Type: {selectedCpuType}</p>
-            <p className="text-gray-600">Plan: {selectedPlan}</p>
-            <p className="text-gray-600">IPv4 Address: {ipv4Address}</p>
-          </div>
-          <button 
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-            onClick={() => setStep(1)}
-          >
-            Create Another Cloud VPS
-          </button>
-        </section>
-      )}
-
-      {step === 7 && !vpsCreated && (
-        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Payment Details</h2>
-          <form className="flex flex-col space-y-4 max-w-md mx-auto">
-            <div>
-              <label htmlFor="cardNumber" className="text-blue-600">Card Number:</label>
-              <input type="text" id="cardNumber" className="border border-gray-300 rounded-lg px-3 py-2 w-full" />
-            </div>
-            <div>
-              <label htmlFor="expiryDate" className="text-blue-600">Expiry Date:</label>
-              <input type="text" id="expiryDate" className="border border-gray-300 rounded-lg px-3 py-2 w-full" />
-            </div>
-            <div>
-              <label htmlFor="cvv" className="text-blue-600">CVV:</label>
-              <input type="text" id="cvv" className="border border-gray-300 rounded-lg px-3 py-2 w-full" />
-            </div>
-            <div>
-              <label htmlFor="cardName" className="text-blue-600">Name on Card:</label>
-              <input type="text" id="cardName" className="border border-gray-300 rounded-lg px-3 py-2 w-full" />
-            </div>
             <button 
-              type="button"
               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+              onClick={handleSubmit}
             >
-              Submit
+              Create My VPS
             </button>
-          </form>
+          </div>
         </section>
       )}
 
-      <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-lg mb-8 text-center text-white">
-        <h2 className="text-3xl font-extrabold mb-8">Our Features</h2>
-        <p className="text-lg text-gray-300 mb-12">We offer top-tier features to all of our clients, no matter the plan! We believe in giving everyone the best experience possible.</p>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-12">
-          <div className="bg-gray-700 rounded-lg p-6 text-center shadow-md">
-            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">DDoS Protection</h3>
-            <p className="text-lg text-gray-300">Protect your server from malicious attacks.</p>
-          </div>
-          <div className="bg-gray-700 rounded-lg p-6 text-center shadow-md">
-            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Fast</h3>
-            <p className="text-lg text-gray-300">Experience lightning-fast performance.</p>
-          </div>
-          <div className="bg-gray-700 rounded-lg p-6 text-center shadow-md">
-            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Reliable</h3>
-            <p className="text-lg text-gray-300">Our servers have a 99.99% uptime guarantee.</p>
-          </div>
-          <div className="bg-gray-700 rounded-lg p-6 text-center shadow-md">
-            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Cheap</h3>
-            <p className="text-lg text-gray-300">Affordable pricing for everyone.</p>
-          </div>
-          <div className="bg-gray-700 rounded-lg p-6 text-center shadow-md">
-            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Very Fast Support</h3>
-            <p className="text-lg text-gray-300">Get help whenever you need it, 24/7.</p>
-          </div>
-        </div>
-        {step !== 7 && (
-          <button 
-            className="bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg hover:bg-yellow-500 transition duration-300"
-            onClick={() => setStep(1)}
-          >
-            Create Cloud VPS
-          </button>
-        )}
-      </section>
+      {step === 6 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Payment Information</h2>
+          <p className="text-gray-600">Your VPS is being created. Please proceed with payment.</p>
+          {/* Add payment form or details */}
+        </section>
+      )}
 
-      <footer className="w-full max-w-5xl flex items-center justify-between">
-        <p className="text-sm text-gray-600">© 2024 LylaNodes. All rights reserved.</p>
-        <div className="flex space-x-4">
-          <a href="#" className="text-blue-600 hover:text-purple-900">Privacy Policy</a>
-          <a href="#" className="text-blue-600 hover:text-purple-900">Terms of Service</a>
-          <a href="#" className="text-blue-600 hover:text-purple-900">Cookie Policy</a>
-        </div>
-      </footer>
+      {step === 7 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Congratulations!</h2>
+          <p className="text-gray-600">Your VPS has been successfully created.</p>
+          <p className="text-gray-600">IPv4 Address: {ipv4Address}</p>
+          {/* Add more details or actions */}
+        </section>
+      )}
+
     </main>
   );
 };

@@ -121,11 +121,12 @@ export default function Home() {
 
         {step === 4 && (
           <>
-            <h2 className="text-2xl font-semibold mb-4 text-blue-600">Dashboard - Servers Tab</h2>
-            <p className="text-lg mb-4 text-blue-600">Your Servers:</p>
-            {vpsCreated && (
-              <p className="text-lg mb-4 text-blue-600">ssh root@{ipv4Address}</p>
-            )}
+            <h2 className="text-2xl font-semibold mb-4 text-blue-600">Your Servers</h2>
+            <div className="bg-gray-100 rounded-lg p-4 my-4">
+              <p className="text-lg text-blue-600">Server Name: {serverName}</p>
+              <p className="text-lg text-blue-600">IP: {ipv4Address}</p>
+              <p className="text-lg text-blue-600">ssh root@{ipv4Address}</p>
+            </div>
             <p className="text-lg mb-4 text-blue-600">Additional content or actions can be placed here...</p>
           </>
         )}

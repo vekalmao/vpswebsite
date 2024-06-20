@@ -1,23 +1,28 @@
-// Add the "use client" directive at the top of the file
-"use client";
-
+// Ensure you have the correct import for React and useState
 import React, { useState } from 'react';
 
+// Functional component Home
 export default function Home() {
+  // State variables
   const [step, setStep] = useState(1);
   const [serverName, setServerName] = useState('');
 
+  // Event handler for advancing to step 2
   const handleCreateCloud = () => {
     setStep(2);
   };
 
+  // Event handler for saving server name (if needed)
   const handleSaveServerName = () => {
-    // Logic to save server name (if needed)
+    // Placeholder for logic to save server name
+    // For now, we simply advance to the next step
+    setStep(2);
   };
 
   return (
+    // Main container with styles
     <main className="flex flex-col items-center justify-center min-h-screen p-10 bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
-      {/* Header */}
+      {/* Header section */}
       <header className="w-full max-w-5xl flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-purple-600">LylaNodes</h1>
@@ -33,7 +38,7 @@ export default function Home() {
         </nav>
       </header>
 
-      {/* Main Content */}
+      {/* Main Content section */}
       <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
         <h2 className="text-2xl font-semibold mb-4 text-purple-600">VirtuHost</h2>
         <p className="text-sm mb-4 text-purple-600">Your Premier VPS Hosting Solution. Elevate Your Web Presence with Top-Tier Services!</p>
@@ -60,7 +65,7 @@ export default function Home() {
       {/* Cloud Server Setup Section */}
       {step === 1 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-purple-600">Let&apos;s Get Your New Cloud Server Setup</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-purple-600">Let's Get Your New Cloud Server Setup</h2>
           <div className="mb-4">
             <label className="block text-left mb-2 text-purple-600">Enter a name for your cloud server:</label>
             <input 
@@ -85,11 +90,11 @@ export default function Home() {
           <h2 className="text-2xl font-semibold mb-4 text-purple-600">Select Your Location</h2>
           <div className="flex justify-center space-x-8 mb-8">
             <div>
-              <img src="https://th.bing.com/th/id/OIP.HO0IBUJz_3oGqI9zA3PklwHaD4?rs=1&pid=ImgDetMain" alt="USA" className="h-24 mb-2" />
+              <img src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="USA" className="h-24 mb-2" />
               <p className="text-gray-600">Ashburn, Virginia</p>
             </div>
             <div>
-              <img src="https://th.bing.com/th/id/R.8d5fe6375990f2398f0bd57777f1948b?rik=eHh4g%2flw7eFlXw&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f2016%2f06%2fGermany-Flag-Free-Download-PNG.png&ehk=UVkyJSwghKhiDsat50ksD2TFtcuEegSFS7t8CHmn1GU%3d&risl=&pid=ImgRaw&r=0 alt="Germany" className="h-24 mb-2" />
+              <img src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="Germany" className="h-24 mb-2" />
               <p className="text-gray-600">Frankfurt, Germany</p>
             </div>
           </div>
@@ -117,7 +122,7 @@ export default function Home() {
         </section>
       )}
 
-      {/* Footer */}
+      {/* Footer section */}
       <footer className="mt-16 mb-4 text-center text-gray-500 text-sm">
         <p>&copy; 2019 - 2024 - All Rights Reserved. Made with ❤️ by LylaNodes</p>
         <div className="mt-4 flex justify-center space-x-4">

@@ -113,11 +113,11 @@ const Home = () => {
           <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Select Your Location</h2>
           <div className="flex justify-center space-x-8 mb-8">
             <div onClick={() => handleSelectLocation('Ashburn, Virginia')} className="cursor-pointer">
-              <Image src="https://th.bing.com/th/id/R.589c9acbb6f6ca592d5364978883dcd6?rik=d1L7Q5ifA3SmVQ&pid=ImgRaw&r=0" alt="USA" width={300} height={200} className="h-24 mb-2" />
+              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="USA" width={300} height={200} className="h-24 mb-2" />
               <p className="text-gray-300">Ashburn, Virginia</p>
             </div>
             <div onClick={() => handleSelectLocation('Frankfurt, Germany')} className="cursor-pointer">
-              <Image src="https://th.bing.com/th/id/R.8d5fe6375990f2398f0bd57777f1948b?rik=eHh4g%2flw7eFlXw&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f2016%2f06%2fGermany-Flag-Free-Download-PNG.png&ehk=UVkyJSwghKhiDsat50ksD2TFtcuEegSFS7t8CHmn1GU%3d&risl=&pid=ImgRaw&r=0" alt="Germany" width={300} height={200} className="h-24 mb-2" />
+              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="Germany" width={300} height={200} className="h-24 mb-2" />
               <p className="text-gray-300">Frankfurt, Germany</p>
             </div>
           </div>
@@ -199,6 +199,38 @@ const Home = () => {
           </div>
         </section>
       )}
+
+      <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
+        <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Our Features</h2>
+        <p className="text-lg text-gray-300 mb-8">We offer top-tier features to all of our clients, no matter the plan! We believe in giving everyone the best experience possible.</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex flex-col items-center">
+            <i className="fas fa-shield-alt text-4xl text-yellow-400 mb-4"></i>
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">DDoS Protection</h3>
+            <p className="text-sm text-gray-300">Protect your server from malicious attacks.</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <i className="fas fa-tachometer-alt text-4xl text-yellow-400 mb-4"></i>
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Fast</h3>
+            <p className="text-sm text-gray-300">Experience lightning-fast performance.</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <i className="fas fa-check-circle text-4xl text-yellow-400 mb-4"></i>
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Reliable</h3>
+            <p className="text-sm text-gray-300">Our servers have a 99.99% uptime guarantee.</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <i className="fas fa-dollar-sign text-4xl text-yellow-400 mb-4"></i>
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Cheap</h3>
+            <p className="text-sm text-gray-300">Affordable pricing for everyone.</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <i className="fas fa-headset text-4xl text-yellow-400 mb-4"></i>
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Very Fast Support</h3>
+            <p className="text-sm text-gray-300">Get help whenever you need it, 24/7.</p>
+          </div>
+        </div>
+      </section>
 
       <footer className="mt-16 mb-4 text-center text-gray-500 text-sm">
         <p>&copy; 2019 - 2024 - All Rights Reserved. Made with ❤️ by LylaNodes</p>

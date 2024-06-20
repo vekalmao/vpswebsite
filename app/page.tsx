@@ -1,4 +1,6 @@
-// Ensure you have the correct import for React and useState
+// Add the "use client" directive at the top of the file
+"use client";
+
 import React, { useState } from 'react';
 
 // Functional component Home

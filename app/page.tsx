@@ -16,21 +16,12 @@ export default function Home() {
         </nav>
       </header>
 
-      {/* Customization Interface */}
-      <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Customize Your VPS</h2>
-        <form className="grid grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="cpu" className="block text-sm font-medium text-gray-700">CPU</label>
-            <input type="text" id="cpu" name="cpu" className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-          </div>
-          <div>
-            <label htmlFor="ram" className="block text-sm font-medium text-gray-700">RAM</label>
-            <input type="text" id="ram" name="ram" className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-          </div>
-          {/* Add inputs for storage, OS, etc. */}
-          <button type="submit" className="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm mt-4">Deploy Now</button>
-        </form>
+      {/* Create Cloud Button */}
+      <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+        <h2 className="text-2xl font-semibold mb-4">Ready to get started?</h2>
+        <a href="/dashboard/server/create" className="block w-full max-w-xs mx-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-md shadow-md transition duration-300">
+          Let's get your new<br />cloud server setup
+        </a>
       </section>
 
       {/* Features Section */}

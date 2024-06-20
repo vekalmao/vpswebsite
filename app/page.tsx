@@ -8,7 +8,7 @@ type LocationType = 'Ashburn Virginia' | 'Frankfurt - Germany';
 const Home = () => {
   const [step, setStep] = useState<number>(1);
   const [serverName, setServerName] = useState<string>('');
-  const [selectedLocation, setSelectedLocation] = useState<LocationType>('');
+  const [selectedLocation, setSelectedLocation] = useState<LocationType | null>(null);
   const [selectedCpuType, setSelectedCpuType] = useState<string>('');
   const [selectedPlan, setSelectedPlan] = useState<any>('');
   const [vpsCreated, setVpsCreated] = useState<boolean>(false);
@@ -50,7 +50,7 @@ const Home = () => {
     setStep(1);
     setVpsCreated(false);
     setServerName('');
-    setSelectedLocation('');
+    setSelectedLocation(null); // Reset selected location to null
     setSelectedCpuType('');
     setSelectedPlan('');
     setShowSetupProcess(false);
@@ -80,7 +80,7 @@ const Home = () => {
   ];
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-10 bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
+    <main className="flex flex-col items-center justify-center min-h-screen p-10 bg-gray-900 text-white">
       <header className="w-full max-w-5xl flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-blue-600">LylaNodes</h1>
@@ -88,13 +88,50 @@ const Home = () => {
         </div>
         <nav>
           <ul className="flex space-x-4">
-            <li><a href="#" className="text-blue-600 hover:text-purple-900 dark:text-blue-400 dark:hover:text-blue-600">Home</a></li>
-            <li><a href="#" className="text-blue-600 hover:text-purple-900 dark:text-blue-400 dark:hover:text-blue-600">Services</a></li>
-            <li><a href="#" className="text-blue-600 hover:text-purple-900 dark:text-blue-400 dark:hover:text-blue-600">Features</a></li>
-            <li><a href="#" className="text-blue-600 hover:text-purple-900 dark:text-blue-400 dark:hover:text-blue-600">Company</a></li>
+            <li><a href="#" className="text-blue-600 hover:text-purple-900">Home</a></li>
+            <li><a href="#" className="text-blue-600 hover:text-purple-900">Services</a></li>
+            <li><a href="#" className="text-blue-600 hover:text-purple-900">Features</a></li>
+            <li><a href="#" className="text-blue-600 hover:text-purple-900">Company</a></li>
           </ul>
         </nav>
       </header>
+
+      <section className="w-full max-w-5xl p-8 text-center">
+        <h2 className="text-5xl font-extrabold mb-8">Affordable VPS Hosting</h2>
+        <p className="text-xl mb-12">Deploy your virtual private server in seconds with our high-performance hosting solutions.</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
+            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">VPS Hosting</h3>
+            <p className="text-lg text-gray-300">Starting at <span className="font-bold">$5.50/month</span></p>
+          </div>
+          <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
+            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Game Hosting</h3>
+            <p className="text-lg text-gray-300">Starting at <span className="font-bold">$4.40/month</span></p>
+          </div>
+          <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
+            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Lavalink Hosting</h3>
+            <p className="text-lg text-gray-300">Coming Soon</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-left">
+        <h2 className="text-3xl font-semibold mb-4 text-yellow-400">Our Features</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-gray-700 p-6 rounded-lg shadow-md text-left">
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">DDoS Protection</h3>
+            <p className="text-gray-300">We provide DDoS protection to ensure your server remains operational even under attack.</p>
+          </div>
+          <div className="bg-gray-700 p-6 rounded-lg shadow-md text-left">
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Fast Response Times</h3>
+            <p className="text-gray-300">Our servers are optimized for quick response times to keep your applications running smoothly.</p>
+          </div>
+          <div className="bg-gray-700 p-6 rounded-lg shadow-md text-left">
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Scalable Infrastructure</h3>
+            <p className="text-gray-300">Easily scale your infrastructure as your business grows with our flexible hosting solutions.</p>
+          </div>
+        </div>
+      </section>
 
       {step === 1 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
@@ -109,7 +146,7 @@ const Home = () => {
             />
           </div>
           <button 
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
             onClick={handleSaveServerName}
           >
             Next
@@ -119,14 +156,26 @@ const Home = () => {
 
       {step === 2 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Select Your Location</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Select a Location</h2>
           <div className="flex justify-center space-x-8 mb-8">
             <div onClick={() => handleSelectLocation('Ashburn Virginia')} className="cursor-pointer">
-              <Image src="/ashburn-virginia.jpg" alt="Ashburn Virginia" width={300} height={200} className="h-24 mb-2 rounded-lg" />
+              <Image 
+                src="/images/ashburn.jpg" 
+                alt="Ashburn Virginia" 
+                width={300} 
+                height={200} 
+                className="h-24 mb-2 rounded-lg" 
+              />
               <p className="text-gray-600">Ashburn Virginia</p>
             </div>
             <div onClick={() => handleSelectLocation('Frankfurt - Germany')} className="cursor-pointer">
-              <Image src="/frankfurt-germany.jpg" alt="Frankfurt - Germany" width={300} height={200} className="h-24 mb-2 rounded-lg" />
+              <Image 
+                src="/images/frankfurt.jpg" 
+                alt="Frankfurt - Germany" 
+                width={300} 
+                height={200} 
+                className="h-24 mb-2 rounded-lg" 
+              />
               <p className="text-gray-600">Frankfurt - Germany</p>
             </div>
           </div>
@@ -135,20 +184,20 @@ const Home = () => {
 
       {step === 3 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Choose Your CPU Type</h2>
-          <div className="flex justify-center space-x-8 mb-8">
-            <button 
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-              onClick={() => handleSelectCpuType('Shared')}
-            >
-              Shared CPU
-            </button>
-            <button 
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-              onClick={() => handleSelectCpuType('Dedicated')}
-            >
-              Dedicated CPU
-            </button>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Select a CPU Type</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div onClick={() => handleSelectCpuType('Standard')} className="cursor-pointer bg-gray-800 rounded-lg p-6 text-center shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Standard</h3>
+              <p className="text-lg text-gray-300">Starting at <span className="font-bold">$5.50/month</span></p>
+            </div>
+            <div onClick={() => handleSelectCpuType('Premium')} className="cursor-pointer bg-gray-800 rounded-lg p-6 text-center shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Premium</h3>
+              <p className="text-lg text-gray-300">Starting at <span className="font-bold">$8.50/month</span></p>
+            </div>
+            <div onClick={() => handleSelectCpuType('Ultra')} className="cursor-pointer bg-gray-800 rounded-lg p-6 text-center shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Ultra</h3>
+              <p className="text-lg text-gray-300">Starting at <span className="font-bold">$12.50/month</span></p>
+            </div>
           </div>
         </section>
       )}
@@ -156,36 +205,20 @@ const Home = () => {
       {step === 4 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
           <h2 className="text-2xl font-semibold mb-4 text-blue-600">Choose Your Plan</h2>
-          <div className="flex justify-center space-x-8 mb-8">
-            {selectedCpuType === 'Shared' ? (
-              sharedPlans.map((plan) => (
-                <div key={plan.name} className="text-left">
-                  <h3 className="text-lg font-semibold mb-2">{plan.name}</h3>
-                  <p className="text-gray-600">{plan.description}</p>
-                  <p className="text-sm text-gray-500">{plan.specifications}</p>
-                  <button 
-                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mt-4 transition duration-300"
-                    onClick={() => handleSelectPlan(plan)}
-                  >
-                    Select Plan
-                  </button>
-                </div>
-              ))
-            ) : (
-              dedicatedPlans.map((plan) => (
-                <div key={plan.name} className="text-left">
-                  <h3 className="text-lg font-semibold mb-2">{plan.name}</h3>
-                  <p className="text-gray-600">{plan.description}</p>
-                  <p className="text-sm text-gray-500">{plan.specifications}</p>
-                  <button 
-                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mt-4 transition duration-300"
-                    onClick={() => handleSelectPlan(plan)}
-                  >
-                    Select Plan
-                  </button>
-                </div>
-              ))
-            )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+            {sharedPlans.map((plan) => (
+              <div key={plan.name} className="text-left">
+                <h3 className="text-lg font-semibold mb-2">{plan.name}</h3>
+                <p className="text-gray-600">{plan.description}</p>
+                <p className="text-sm text-gray-500">{plan.specifications}</p>
+                <button 
+                  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mt-4 transition duration-300"
+                  onClick={() => handleSelectPlan(plan)}
+                >
+                  Select Plan
+                </button>
+              </div>
+            ))}
           </div>
         </section>
       )}

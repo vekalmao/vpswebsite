@@ -9,7 +9,7 @@ type LocationType = 'Ashburn Virginia' | 'Frankfurt - Germany';
 const Home = () => {
   const [step, setStep] = useState<number>(1);
   const [serverName, setServerName] = useState<string>('');
-  const [selectedLocation, setSelectedLocation] = useState<LocationType>('');
+  const [selectedLocation, setSelectedLocation] = useState<LocationType | null>(null);
   const [selectedCpuType, setSelectedCpuType] = useState<string>('');
   const [selectedPlan, setSelectedPlan] = useState<any>('');
   const [vpsCreated, setVpsCreated] = useState<boolean>(false);
@@ -51,7 +51,7 @@ const Home = () => {
     setStep(1);
     setVpsCreated(false);
     setServerName('');
-    setSelectedLocation('');
+    setSelectedLocation(null); // Reset selected location to null
     setSelectedCpuType('');
     setSelectedPlan('');
     setShowSetupProcess(false);
@@ -157,36 +157,20 @@ const Home = () => {
       {step === 4 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
           <h2 className="text-2xl font-semibold mb-4 text-blue-600">Choose Your Plan</h2>
-          <div className="flex justify-center space-x-8 mb-8">
-            {selectedCpuType === 'Shared' ? (
-              sharedPlans.map((plan) => (
-                <div key={plan.name} className="text-left">
-                  <h3 className="text-lg font-semibold mb-2">{plan.name}</h3>
-                  <p className="text-gray-600">{plan.description}</p>
-                  <p className="text-sm text-gray-500">{plan.specifications}</p>
-                  <button 
-                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mt-4 transition duration-300"
-                    onClick={() => handleSelectPlan(plan)}
-                  >
-                    Select Plan
-                  </button>
-                </div>
-              ))
-            ) : (
-              dedicatedPlans.map((plan) => (
-                <div key={plan.name} className="text-left">
-                  <h3 className="text-lg font-semibold mb-2">{plan.name}</h3>
-                  <p className="text-gray-600">{plan.description}</p>
-                  <p className="text-sm text-gray-500">{plan.specifications}</p>
-                  <button 
-                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mt-4 transition duration-300"
-                    onClick={() => handleSelectPlan(plan)}
-                  >
-                    Select Plan
-                  </button>
-                </div>
-              ))
-            )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+            {sharedPlans.map((plan) => (
+              <div key={plan.name} className="text-left">
+                <h3 className="text-lg font-semibold mb-2">{plan.name}</h3>
+                <p className="text-gray-600">{plan.description}</p>
+                <p className="text-sm text-gray-500">{plan.specifications}</p>
+                <button 
+                  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mt-4 transition duration-300"
+                  onClick={() => handleSelectPlan(plan)}
+                >
+                  Select Plan
+                </button>
+              </div>
+            ))}
           </div>
         </section>
       )}
@@ -233,4 +217,5 @@ const Home = () => {
 };
 
 export default Home;
+
 

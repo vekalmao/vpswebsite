@@ -1,3 +1,6 @@
+// Add the "use client" directive at the top of the file
+"use client";
+
 import React, { useState } from 'react';
 
 export default function Home() {

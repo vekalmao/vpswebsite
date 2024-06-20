@@ -5,9 +5,14 @@ import React, { useState } from 'react';
 
 export default function Home() {
   const [step, setStep] = useState(1);
+  const [serverName, setServerName] = useState('');
 
   const handleCreateCloud = () => {
     setStep(2);
+  };
+
+  const handleSaveServerName = () => {
+    // Logic to save server name (if needed)
   };
 
   return (
@@ -56,26 +61,59 @@ export default function Home() {
       {step === 1 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
           <h2 className="text-2xl font-semibold mb-4 text-purple-600">Let&apos;s Get Your New Cloud Server Setup</h2>
-          <button className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-300" onClick={handleCreateCloud}>
-            Create Cloud Server
+          <div className="mb-4">
+            <label className="block text-left mb-2 text-purple-600">Enter a name for your cloud server:</label>
+            <input 
+              type="text" 
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full" 
+              value={serverName} 
+              onChange={(e) => setServerName(e.target.value)} 
+            />
+          </div>
+          <button 
+            className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-300"
+            onClick={handleSaveServerName}
+          >
+            Next
           </button>
         </section>
       )}
 
-      {/* Cloud Server Configuration Section */}
+      {/* Cloud Server Location Selection Section */}
       {step === 2 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-purple-600">Cloud Server Configuration</h2>
-          <div className="mb-4">
-            <label className="block text-left mb-2 text-purple-600">Enter a name for your cloud server:</label>
-            <input type="text" className="border border-gray-300 rounded-lg px-3 py-2 w-full" />
+          <h2 className="text-2xl font-semibold mb-4 text-purple-600">Select Your Location</h2>
+          <div className="flex justify-center space-x-8 mb-8">
+            <div>
+              <img src="/images/usa.png" alt="USA" className="h-24 mb-2" />
+              <p className="text-gray-600">Ashburn, Virginia</p>
+            </div>
+            <div>
+              <img src="/images/germany.png" alt="Germany" className="h-24 mb-2" />
+              <p className="text-gray-600">Frankfurt, Germany</p>
+            </div>
           </div>
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
-            Save
+          <button 
+            className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-300"
+            onClick={() => setStep(3)}
+          >
+            Next
           </button>
-          <button className="text-blue-500 px-4 py-2 rounded-lg ml-4 hover:text-blue-600 transition duration-300" onClick={() => setStep(1)}>
-            Previous
-          </button>
+        </section>
+      )}
+
+      {/* Cloud Server Project Type Selection Section */}
+      {step === 3 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-purple-600">Choose Your Project</h2>
+          <div className="grid grid-cols-2 gap-8">
+            <button className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-300">
+              Shared CPU
+            </button>
+            <button className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-300">
+              Dedicated CPU
+            </button>
+          </div>
         </section>
       )}
 

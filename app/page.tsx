@@ -171,99 +171,41 @@ const Home = () => {
 
       {step === 5 && (
         <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Review Your Choices</h2>
-          <div className="text-left text-gray-300">
-            <p><strong>Server Name:</strong> {serverName}</p>
-            <p><strong>Location:</strong> {selectedLocation}</p>
-            <p><strong>CPU Type:</strong> {selectedCpuType}</p>
-            <p><strong>Plan:</strong> {selectedPlan}</p>
+          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Review and Submit</h2>
+          <div className="mb-4">
+            <p className="text-lg text-gray-300">Server Name: {serverName}</p>
+            <p className="text-lg text-gray-300">Location: {selectedLocation}</p>
+            <p className="text-lg text-gray-300">CPU Type: {selectedCpuType}</p>
+            <p className="text-lg text-gray-300">Plan: {selectedPlan}</p>
           </div>
           <button 
-            className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300 mt-4"
+            className="bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg hover:bg-yellow-500 transition duration-300"
             onClick={handleSubmit}
           >
-            Create Cloud VPS
+            Submit
           </button>
         </section>
       )}
 
       {step === 6 && (
         <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Your VPS Has Been Created!</h2>
-          <div className="text-left text-gray-300">
-            <p><strong>Server Name:</strong> {serverName}</p>
-            <p><strong>Location:</strong> {selectedLocation}</p>
-            <p><strong>CPU Type:</strong> {selectedCpuType}</p>
-            <p><strong>Plan:</strong> {selectedPlan}</p>
-            <p><strong>IPv4 Address:</strong> {ipv4Address}</p>
-          </div>
+          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Congratulations!</h2>
+          <p className="text-lg text-gray-300 mb-8">Your VPS has been created successfully.</p>
+          <p className="text-lg text-gray-300 mb-8">IPv4 Address: {ipv4Address}</p>
+          <button 
+            className="bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg hover:bg-yellow-500 transition duration-300"
+            onClick={() => setStep(0)}
+          >
+            Start Over
+          </button>
         </section>
       )}
 
-      {step <= 1 && (
-        <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-          <div className="border-4 border-yellow-400 rounded-lg p-8">
-            <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Our Features</h2>
-            <p className="text-lg text-gray-300 mb-8">We offer top-tier features to all of our clients, no matter the plan! We believe in giving everyone the best experience possible.</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex flex-col items-center bg-gray-900 rounded-lg p-6 text-center shadow-lg">
-                <i className="fas fa-shield-alt text-4xl text-yellow-400 mb-4"></i>
-                <h3 className="text-xl font-semibold mb-2 text-yellow-400">DDoS Protection</h3>
-                <p className="text-sm text-gray-300">Protect your server from malicious attacks.</p>
-              </div>
-              <div className="flex flex-col items-center bg-gray-900 rounded-lg p-6 text-center shadow-lg">
-                <i className="fas fa-tachometer-alt text-4xl text-yellow-400 mb-4"></i>
-                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Fast</h3>
-                <p className="text-sm text-gray-300">Experience lightning-fast performance.</p>
-              </div>
-              <div className="flex flex-col items-center bg-gray-900 rounded-lg p-6 text-center shadow-lg">
-                <i className="fas fa-check-circle text-4xl text-yellow-400 mb-4"></i>
-                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Reliable</h3>
-                <p className="text-sm text-gray-300">Our servers have a 99.99% uptime guarantee.</p>
-              </div>
-              <div className="flex flex-col items-center bg-gray-900 rounded-lg p-6 text-center shadow-lg">
-                <i className="fas fa-dollar-sign text-4xl text-yellow-400 mb-4"></i>
-                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Cheap</h3>
-                <p className="text-sm text-gray-300">Affordable pricing for everyone.</p>
-              </div>
-              <div className="flex flex-col items-center bg-gray-900 rounded-lg p-6 text-center shadow-lg">
-                <i className="fas fa-headset text-4xl text-yellow-400 mb-4"></i>
-                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Very Fast Support</h3>
-                <p className="text-sm text-gray-300">Get help whenever you need it, 24/7.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      <footer className="mt-16 mb-4 text-center text-gray-500 text-sm">
-        <p>&copy; 2019 - 2024 - All Rights Reserved. Made with ❤️ by LylaNodes</p>
-        <div className="mt-4 flex justify-center space-x-4">
-          <a href="#" className="hover:text-yellow-400">Privacy Policy</a>
-          <a href="#" className="hover:text-yellow-400">Terms of Service</a>
-          <a href="#" className="hover:text-yellow-400">Contact Us</a>
-        </div>
+      <footer className="w-full max-w-5xl flex items-center justify-center py-8 text-sm">
+        <p className="text-gray-300">&copy; 2024 LylaNodes. All rights reserved.</p>
       </footer>
     </main>
   );
 };
-
-const sharedPlans = [
-  { name: 'CX-01', description: 'Cheap for small projects', specifications: '1GB of RAM, 1 Core, 20GB of Storage' },
-  { name: 'CX-02', description: 'Affordable for startups', specifications: '2GB of RAM, 2 Cores, 40GB of Storage' },
-  { name: 'CX-03', description: 'Balanced for growing applications', specifications: '4GB of RAM, 2 Cores, 80GB of Storage' },
-  { name: 'CX-04', description: 'Powerful for multiple applications', specifications: '8GB of RAM, 4 Cores, 160GB of Storage' },
-  { name: 'CX-05', description: 'High-performance for intensive tasks', specifications: '16GB of RAM, 6 Cores, 320GB of Storage' },
-  { name: 'CX-06', description: 'Ultimate for enterprise-grade solutions', specifications: '32GB of RAM, 8 Cores, 640GB of Storage' }
-];
-
-const dedicatedPlans = [
-  { name: 'DX-01', description: 'Prices are mid, for big projects', specifications: '4GB of RAM, 4 Cores, 100GB of Storage' },
-  { name: 'DX-02', description: 'Balanced for growing applications', specifications: '8GB of RAM, 4 Cores, 200GB of Storage' },
-  { name: 'DX-03', description: 'Powerful for multiple applications', specifications: '16GB of RAM, 8 Cores, 400GB of Storage' },
-  { name: 'DX-04', description: 'High-performance for intensive tasks', specifications: '32GB of RAM, 16 Cores, 800GB of Storage' },
-  { name: 'DX-05', description: 'Ultimate for enterprise-grade solutions', specifications: '64GB of RAM, 32 Cores, 1600GB of Storage' },
-  { name: 'DX-06', description: 'Extreme power for specialized tasks', specifications: '128GB of RAM, 64 Cores, 3200GB of Storage' }
-];
 
 export default Home;

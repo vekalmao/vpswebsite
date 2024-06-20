@@ -201,34 +201,56 @@ const Home = () => {
       )}
 
       <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-        <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Our Features</h2>
-        <p className="text-lg text-gray-300 mb-8">We offer top-tier features to all of our clients, no matter the plan! We believe in giving everyone the best experience possible.</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="flex flex-col items-center">
-            <i className="fas fa-shield-alt text-4xl text-yellow-400 mb-4"></i>
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">DDoS Protection</h3>
-            <p className="text-sm text-gray-300">Protect your server from malicious attacks.</p>
+        <div className="border-4 border-yellow-400 rounded-lg p-8">
+          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Our Features</h2>
+          <p className="text-lg text-gray-300 mb-8">We offer top-tier features to all of our clients, no matter the plan! We believe in giving everyone the best experience possible.</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="flex flex-col items-center">
+              <i className="fas fa-shield-alt text-4xl text-yellow-400 mb-4"></i>
+              <h3 className="text-xl font-semibold mb-2 text-yellow-400">DDoS Protection</h3>
+              <p className="text-sm text-gray-300">Protect your server from malicious attacks.</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <i className="fas fa-tachometer-alt text-4xl text-yellow-400 mb-4"></i>
+              <h3 className="text-xl font-semibold mb-2 text-yellow-400">Fast</h3>
+              <p className="text-sm text-gray-300">Experience lightning-fast performance.</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <i className="fas fa-check-circle text-4xl text-yellow-400 mb-4"></i>
+              <h3 className="text-xl font-semibold mb-2 text-yellow-400">Reliable</h3>
+              <p className="text-sm text-gray-300">Our servers have a 99.99% uptime guarantee.</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <i className="fas fa-dollar-sign text-4xl text-yellow-400 mb-4"></i>
+              <h3 className="text-xl font-semibold mb-2 text-yellow-400">Cheap</h3>
+              <p className="text-sm text-gray-300">Affordable pricing for everyone.</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <i className="fas fa-headset text-4xl text-yellow-400 mb-4"></i>
+              <h3 className="text-xl font-semibold mb-2 text-yellow-400">Very Fast Support</h3>
+              <p className="text-sm text-gray-300">Get help whenever you need it, 24/7.</p>
+            </div>
           </div>
-          <div className="flex flex-col items-center">
-            <i className="fas fa-tachometer-alt text-4xl text-yellow-400 mb-4"></i>
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Fast</h3>
-            <p className="text-sm text-gray-300">Experience lightning-fast performance.</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <i className="fas fa-check-circle text-4xl text-yellow-400 mb-4"></i>
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Reliable</h3>
-            <p className="text-sm text-gray-300">Our servers have a 99.99% uptime guarantee.</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <i className="fas fa-dollar-sign text-4xl text-yellow-400 mb-4"></i>
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Cheap</h3>
-            <p className="text-sm text-gray-300">Affordable pricing for everyone.</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <i className="fas fa-headset text-4xl text-yellow-400 mb-4"></i>
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Very Fast Support</h3>
-            <p className="text-sm text-gray-300">Get help whenever you need it, 24/7.</p>
-          </div>
+        </div>
+      </section>
+
+      <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
+        <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Old Plans</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {sharedPlans.map((plan) => (
+            <div key={plan.name} className="bg-gray-900 rounded-lg p-4 cursor-pointer hover:bg-gray-700 transition duration-300">
+              <h3 className="text-xl font-semibold mb-2 text-yellow-400">{plan.name}</h3>
+              <p className="text-sm text-gray-300">{plan.description}</p>
+              <p className="text-sm text-gray-300">{plan.specifications}</p>
+            </div>
+          ))}
+          {dedicatedPlans.map((plan) => (
+            <div key={plan.name} className="bg-gray-900 rounded-lg p-4 cursor-pointer hover:bg-gray-700 transition duration-300">
+              <h3 className="text-xl font-semibold mb-2 text-yellow-400">{plan.name}</h3>
+              <p className="text-sm text-gray-300">{plan.description}</p>
+              <p className="text-sm text-gray-300">{plan.specifications}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -245,29 +267,21 @@ const Home = () => {
 };
 
 const sharedPlans = [
-  {
-    name: 'Basic',
-    description: 'Great for getting started',
-    specifications: '1 vCPU, 1GB RAM, 25GB SSD',
-  },
-  {
-    name: 'Standard',
-    description: 'Ideal for small projects',
-    specifications: '2 vCPU, 2GB RAM, 50GB SSD',
-  },
+  { name: 'CX-01', description: 'Cheap for small projects', specifications: '1GB of RAM, 1 Core, 20GB of Storage' },
+  { name: 'CX-02', description: 'Affordable for startups', specifications: '2GB of RAM, 2 Cores, 40GB of Storage' },
+  { name: 'CX-03', description: 'Balanced for growing applications', specifications: '4GB of RAM, 2 Cores, 80GB of Storage' },
+  { name: 'CX-04', description: 'Powerful for multiple applications', specifications: '8GB of RAM, 4 Cores, 160GB of Storage' },
+  { name: 'CX-05', description: 'High-performance for intensive tasks', specifications: '16GB of RAM, 6 Cores, 320GB of Storage' },
+  { name: 'CX-06', description: 'Ultimate for enterprise-grade solutions', specifications: '32GB of RAM, 8 Cores, 640GB of Storage' }
 ];
 
 const dedicatedPlans = [
-  {
-    name: 'Pro',
-    description: 'Perfect for demanding applications',
-    specifications: '4 vCPU, 8GB RAM, 100GB SSD',
-  },
-  {
-    name: 'Ultimate',
-    description: 'Maximum performance',
-    specifications: '8 vCPU, 16GB RAM, 200GB SSD',
-  },
+  { name: 'DX-01', description: 'Prices are mid, for big projects', specifications: '4GB of RAM, 4 Cores, 100GB of Storage' },
+  { name: 'DX-02', description: 'Balanced for growing applications', specifications: '8GB of RAM, 4 Cores, 200GB of Storage' },
+  { name: 'DX-03', description: 'Powerful for multiple applications', specifications: '16GB of RAM, 8 Cores, 400GB of Storage' },
+  { name: 'DX-04', description: 'High-performance for intensive tasks', specifications: '32GB of RAM, 16 Cores, 800GB of Storage' },
+  { name: 'DX-05', description: 'Ultimate for enterprise-grade solutions', specifications: '64GB of RAM, 32 Cores, 1600GB of Storage' },
+  { name: 'DX-06', description: 'Extreme power for specialized tasks', specifications: '128GB of RAM, 64 Cores, 3200GB of Storage' }
 ];
 
 export default Home;

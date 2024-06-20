@@ -18,27 +18,13 @@ export default function Home({ initialFormData }) {
     setStep(2);
   };
 
-  const handleFormSubmit = async (event) => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
     
-    try {
-      const response = await fetch('/api/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setSignupSuccess(true); // Set state to redirect after successful signup
-      } else {
-        // Handle error scenario (e.g., display error message to user)
-        console.error('Signup request failed');
-      }
-    } catch (error) {
-      console.error('Error occurred during signup:', error);
-    }
+    // Simulating signup process with a timeout
+    setTimeout(() => {
+      setSignupSuccess(true);
+    }, 2000); // Simulating a 2-second delay for signup process
   };
 
   const handleInputChange = (event) => {

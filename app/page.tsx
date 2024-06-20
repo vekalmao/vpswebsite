@@ -9,7 +9,7 @@ export default function Home() {
       <header className="w-full max-w-5xl flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold">LylaNodes</h1>
-          <p className="text-sm">/VirtuHost</p>
+          <p className="text-sm">/ VirtuHost</p>
         </div>
         <nav>
           <ul className="flex space-x-4">
@@ -23,7 +23,7 @@ export default function Home() {
 
       {/* Main Content */}
       <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-        <h2 className="text-2xl font-semibold mb-4">VirtuHost</h2>
+        <h2 className="text-2xl font-semibold mb-4">TrestHost</h2>
         <p className="text-sm mb-4">Your Premier VPS Hosting Solution. Elevate Your Web Presence with Top-Tier Services!</p>
 
         {/* Create Cloud Button */}
@@ -39,7 +39,7 @@ export default function Home() {
         {/* Step 2: Cloud Server Configuration */}
         {step === 2 && (
           <div className="text-left">
-            <h3 className="text-blue-500 text-xl font-semibold mb-4">Let's get your new cloud server setup</h3>
+            <h3 className="text-blue-500 text-xl font-semibold mb-4">Let&apos;s get your new cloud server setup</h3>
             <button
               onClick={() => setStep(1)} // Go back to step 1
               className="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-md shadow-md mr-4 transition duration-300"

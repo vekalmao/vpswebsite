@@ -1,8 +1,9 @@
+// Import Image component from next/image
 import Image from 'next/image';
-import { useState } from 'react';
 
+// Define the Home component
 export default function Home() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = React.useState(1); // Using React.useState instead of useState
 
   const handleCreateCloud = () => {
     setStep(2); // Proceed to step 2 on button click

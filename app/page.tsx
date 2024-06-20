@@ -43,13 +43,6 @@ const Home = () => {
   };
 
   const handleSetupCloudVPS = () => {
-    setStep(1);
-    setServerName('');
-    setSelectedLocation('');
-    setSelectedCpuType('');
-    setSelectedPlan('');
-    setVpsCreated(false);
-    setIpv4Address('');
     setShowSetupProcess(true); // Show setup process when button is clicked
   };
 
@@ -67,6 +60,11 @@ const Home = () => {
     const ipOctet = () => Math.floor(Math.random() * 256);
     return `${ipOctet()}.${ipOctet()}.${ipOctet()}.${ipOctet()}`;
   };
+
+  const additionalLocations: string[] = [
+    'Frankfurt - Germany',
+    'Ashburn Virginia'
+  ];
 
   const sharedPlans = [
     { name: 'CX-01', description: 'Cheap for small projects', specifications: '1GB of RAM, 1 Core, 20GB of Storage' },
@@ -86,16 +84,6 @@ const Home = () => {
     { name: 'DX-06', description: 'Extreme power for specialized tasks', specifications: '128GB of RAM, 64 Cores, 3200GB of Storage' }
   ];
 
-  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    alert('Registration successful!');
-  };
-
-  const additionalLocations: LocationType[] = [
-    'Ashburn Virginia',
-    'Frankfurt - Germany'
-  ];
-
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-10 bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
       <header className="w-full max-w-5xl flex items-center justify-between mb-8">
@@ -113,33 +101,32 @@ const Home = () => {
         </nav>
       </header>
 
-      <section className="w-full max-w-5xl p-8 text-center">
-        <h2 className="text-5xl font-extrabold mb-8 text-white">Affordable VPS Hosting</h2>
-        <p className="text-xl text-gray-300 mb-12">Deploy your virtual private server in seconds with our high-performance hosting solutions.</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
-            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">VPS Hosting</h3>
-            <p className="text-lg text-gray-300">Starting at <span className="font-bold">$5.50/month</span></p>
+      {!showSetupProcess && (
+        <section className="w-full max-w-5xl p-8 text-center">
+          <h2 className="text-5xl font-extrabold mb-8 text-white">Affordable VPS Hosting</h2>
+          <p className="text-xl text-gray-300 mb-12">Deploy your virtual private server in seconds with our high-performance hosting solutions.</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-yellow-400">VPS Hosting</h3>
+              <p className="text-lg text-gray-300">Starting at <span className="font-bold">$5.50/month</span></p>
+            </div>
+            <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Game Hosting</h3>
+              <p className="text-lg text-gray-300">Starting at <span className="font-bold">$4.40/month</span></p>
+            </div>
+            <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Lavalink Hosting</h3>
+              <p className="text-lg text-gray-300">Coming Soon</p>
+            </div>
           </div>
-          <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
-            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Game Hosting</h3>
-            <p className="text-lg text-gray-300">Starting at <span className="font-bold">$4.40/month</span></p>
-          </div>
-          <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
-            <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Lavalink Hosting</h3>
-            <p className="text-lg text-gray-300">Coming Soon</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="text-center mb-8">
-        <button
-          className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300"
-          onClick={handleSetupCloudVPS}
-        >
-          Setup Cloud VPS
-        </button>
-      </section>
+          <button
+            className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300"
+            onClick={handleSetupCloudVPS}
+          >
+            Setup Cloud VPS
+          </button>
+        </section>
+      )}
 
       {showSetupProcess && (
         <section className="w-full max-w-5xl p-8 text-center">
@@ -153,106 +140,6 @@ const Home = () => {
               </div>
             ))}
           </div>
-        </section>
-      )}
-
-      {step === 2 && (
-        <section className="w-full max-w-5xl p-8 text-center">
-          <h2 className="text-3xl font-semibold mb-4">Choose a Server Name</h2>
-          <input
-            type="text"
-            placeholder="Enter server name"
-            className="border border-gray-300 rounded-md px-4 py-2 mb-4"
-            value={serverName}
-            onChange={(e) => setServerName(e.target.value)}
-          />
-          <button
-            className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300"
-            onClick={handleSaveServerName}
-          >
-            Next
-          </button>
-        </section>
-      )}
-
-      {step === 3 && (
-        <section className="w-full max-w-5xl p-8 text-center">
-          <h2 className="text-3xl font-semibold mb-4">Select CPU Type</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div onClick={() => handleSelectCpuType('shared')} className="cursor-pointer bg-gray-200 p-4 rounded-lg">
-              <h3 className="text-2xl font-semibold mb-2">Shared CPU</h3>
-              <p className="text-gray-600">Ideal for standard workloads</p>
-            </div>
-            <div onClick={() => handleSelectCpuType('dedicated')} className="cursor-pointer bg-gray-200 p-4 rounded-lg">
-              <h3 className="text-2xl font-semibold mb-2">Dedicated CPU</h3>
-              <p className="text-gray-600">Optimized for high-performance tasks</p>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {step === 4 && (
-        <section className="w-full max-w-5xl p-8 text-center">
-          <h2 className="text-3xl font-semibold mb-4">Select Plan</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-            {selectedCpuType === 'shared' ? (
-              sharedPlans.map((plan) => (
-                <div key={plan.name} onClick={() => handleSelectPlan(plan)} className="cursor-pointer bg-gray-200 p-4 rounded-lg">
-                  <h3 className="text-xl font-semibold mb-2">{plan.name}</h3>
-                  <p className="text-gray-600">{plan.description}</p>
-                  <p className="text-gray-600">{plan.specifications}</p>
-                </div>
-              ))
-            ) : (
-              dedicatedPlans.map((plan) => (
-                <div key={plan.name} onClick={() => handleSelectPlan(plan)} className="cursor-pointer bg-gray-200 p-4 rounded-lg">
-                  <h3 className="text-xl font-semibold mb-2">{plan.name}</h3>
-                  <p className="text-gray-600">{plan.description}</p>
-                  <p className="text-gray-600">{plan.specifications}</p>
-                </div>
-              ))
-            )}
-          </div>
-        </section>
-      )}
-
-      {step === 5 && (
-        <section className="w-full max-w-5xl p-8 text-center">
-          <h2 className="text-3xl font-semibold mb-4">Review and Submit</h2>
-          <div className="bg-gray-200 p-8 rounded-lg mb-8 inline-block">
-            <h3 className="text-2xl font-semibold mb-4">Server Configuration</h3>
-            <p className="text-gray-600"><span className="font-semibold">Server Name:</span> {serverName}</p>
-            <p className="text-gray-600"><span className="font-semibold">Location:</span> {selectedLocation}</p>
-            <p className="text-gray-600"><span className="font-semibold">CPU Type:</span> {selectedCpuType}</p>
-            <p className="text-gray-600"><span className="font-semibold">Plan:</span> {selectedPlan.name}</p>
-          </div>
-          <button
-            className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300"
-            onClick={handleSubmit}
-          >
-            Submit
-          </button>
-        </section>
-      )}
-
-      {step === 6 && (
-        <section className="w-full max-w-5xl p-8 text-center">
-          <h2 className="text-3xl font-semibold mb-4">Cloud VPS Created</h2>
-          <p className="text-gray-600 mb-8">Your Cloud VPS has been successfully created!</p>
-          <div className="bg-gray-200 p-8 rounded-lg mb-8 inline-block">
-            <h3 className="text-2xl font-semibold mb-4">Server Details</h3>
-            <p className="text-gray-600"><span className="font-semibold">Server Name:</span> {serverName}</p>
-            <p className="text-gray-600"><span className="font-semibold">Location:</span> {selectedLocation}</p>
-            <p className="text-gray-600"><span className="font-semibold">CPU Type:</span> {selectedCpuType}</p>
-            <p className="text-gray-600"><span className="font-semibold">Plan:</span> {selectedPlan.name}</p>
-            <p className="text-gray-600"><span className="font-semibold">IPv4 Address:</span> {ipv4Address}</p>
-          </div>
-          <button
-            className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300"
-            onClick={handleSetupCloudVPS}
-          >
-            Setup Another Cloud VPS
-          </button>
         </section>
       )}
 

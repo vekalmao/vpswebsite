@@ -1,11 +1,10 @@
-// Add the "use client" directive at the top of the file
 "use client";
 
 import React, { useState } from 'react';
 import Image from 'next/image';
 
 const Home = () => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0); // 0 for home page, then steps 1-6 for the setup process
   const [serverName, setServerName] = useState('');
   const [selectedLocation, setSelectedLocation] = useState<string>('');
   const [selectedCpuType, setSelectedCpuType] = useState<string>('');
@@ -78,6 +77,19 @@ const Home = () => {
           </ul>
         </nav>
       </header>
+
+      {step === 0 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Welcome to LylaNodes VirtuHost</h2>
+          <p className="text-lg text-gray-600 mb-4">Create your cloud VPS quickly and easily.</p>
+          <button 
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            onClick={() => setStep(1)}
+          >
+            Create Cloud VPS
+          </button>
+        </section>
+      )}
 
       {step === 1 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
@@ -203,12 +215,20 @@ const Home = () => {
           <p className="text-lg text-gray-600 mb-4">
             IPv4 Address: <span className="font-semibold">{ipv4Address}</span>
           </p>
-          <p className="text-lg text-gray-600 mb-4">
-            <Image src="/success-icon.png" alt="Success" width={100} height={100} />
-          </p>
+          <Image src="/success-icon.png" alt="Success" width={100} height={100} />
           <button 
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-            onClick={() => setStep(1)}
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 mt-4"
+            onClick={() => {
+              // Reset all state variables to initial values
+              setServerName('');
+              setSelectedLocation('');
+              setSelectedCpuType('');
+              setSelectedPlan('');
+              setVpsCreated(false);
+              setIpv4Address('');
+              // Go back to the home page
+              setStep(0);
+            }}
           >
             Create Another Cloud VPS
           </button>

@@ -1,6 +1,5 @@
 "use client";
 
-
 import React, { useState } from 'react';
 import Image from 'next/image';
 
@@ -72,6 +71,11 @@ const Home = () => {
   const generateRandomIpv4 = (): string => {
     const ipOctet = () => Math.floor(Math.random() * 256);
     return `${ipOctet()}.${ipOctet()}.${ipOctet()}.${ipOctet()}`;
+  };
+
+  // Function to handle starting the VPS creation process
+  const handleCreateCloudVPS = () => {
+    setStep(1); // Move to the registration form step
   };
 
   return (
@@ -151,6 +155,14 @@ const Home = () => {
             </div>
           </div>
 
+          {/* Create Cloud VPS Button */}
+          <button
+            className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
+            onClick={handleCreateCloudVPS}
+          >
+            Create Cloud VPS
+          </button>
+
           {/* Our Features */}
           <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-left">
             <h2 className="text-3xl font-semibold mb-4 text-yellow-400">Our Features</h2>
@@ -171,6 +183,146 @@ const Home = () => {
           </section>
         </section>
       )}
+
+      {/* Step 1: Save Server Name */}
+      {step === 1 && (
+        <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Step 1: Save Server Name</h2>
+          <div className="mb-4">
+            <label className="block text-left mb-2 text-gray-300">Server Name:</label>
+            <input
+              type="text"
+              className="border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 w-full"
+              value={serverName}
+              onChange={(e) => setServerName(e.target.value)}
+            />
+          </div>
+          <button
+            className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
+            onClick={handleSaveServerName}
+          >
+            Save Server Name
+          </button>
+        </section>
+      )}
+
+      {/* Step 2: Select Location */}
+      {step === 2 && (
+        <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Step 2: Select Location</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <button
+              className={`bg-gray-700 text-white px-4 py-2 rounded-lg ${selectedLocation === 'USA' ? 'bg-yellow-400' : 'hover:bg-gray-600'}`}
+              onClick={() => handleSelectLocation('USA')}
+            >
+              USA
+            </button>
+            <button
+              className={`bg-gray-700 text-white px-4 py-2 rounded-lg ${selectedLocation === 'Europe' ? 'bg-yellow-400' : 'hover:bg-gray-600'}`}
+              onClick={() => handleSelectLocation('Europe')}
+            >
+              Europe
+            </button>
+            <button
+              className={`bg-gray-700 text-white px-4 py-2 rounded-lg ${selectedLocation === 'Asia' ? 'bg-yellow-400' : 'hover:bg-gray-600'}`}
+              onClick={() => handleSelectLocation('Asia')}
+            >
+              Asia
+            </button>
+          </div>
+        </section>
+      )}
+
+      {/* Step 3: Select CPU Type */}
+      {step === 3 && (
+        <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Step 3: Select CPU Type</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <button
+              className={`bg-gray-700 text-white px-4 py-2 rounded-lg ${selectedCpuType === 'Intel' ? 'bg-yellow-400' : 'hover:bg-gray-600'}`}
+              onClick={() => handleSelectCpuType('Intel')}
+            >
+              Intel
+            </button>
+            <button
+              className={`bg-gray-700 text-white px-4 py-2 rounded-lg ${selectedCpuType === 'AMD' ? 'bg-yellow-400' : 'hover:bg-gray-600'}`}
+              onClick={() => handleSelectCpuType('AMD')}
+            >
+              AMD
+            </button>
+          </div>
+        </section>
+      )}
+
+      {/* Step 4: Select Plan */}
+      {step === 4 && (
+        <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Step 4: Select Plan</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {sharedPlans.map((plan, index) => (
+              <div key={index} className="bg-gray-700 rounded-lg p-6 text-left shadow-md">
+                <h3 className="text-xl font-semibold mb-2 text-yellow-400">{plan.name}</h3>
+                <p className="text-gray-300 mb-2">{plan.description}</p>
+                <p className="text-gray-300">{plan.specifications}</p>
+                <button
+                  className={`block mt-4 bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300`}
+                  onClick={() => handleSelectPlan(plan)}
+                >
+                  Select Plan
+                </button>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Step 5: Review and Submit */}
+      {step === 5 && (
+        <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Step 5: Review and Submit</h2>
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Server Name:</h3>
+            <p className="text-gray-300 mb-2">{serverName}</p>
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Location:</h3>
+            <p className="text-gray-300 mb-2">{selectedLocation}</p>
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">CPU Type:</h3>
+            <p className="text-gray-300 mb-2">{selectedCpuType}</p>
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Selected Plan:</h3>
+            <p className="text-gray-300 mb-2">{selectedPlan.name}</p>
+            <p className="text-gray-300 mb-2">{selectedPlan.description}</p>
+            <p className="text-gray-300">{selectedPlan.specifications}</p>
+          </div>
+          <button
+            className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
+            onClick={handleSubmit}
+          >
+            Create VPS
+          </button>
+        </section>
+      )}
+
+      {/* Step 6: VPS Created */}
+      {step === 6 && (
+        <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">VPS Created Successfully!</h2>
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Server Name:</h3>
+            <p className="text-gray-300 mb-2">{serverName}</p>
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Location:</h3>
+            <p className="text-gray-300 mb-2">{selectedLocation}</p>
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">CPU Type:</h3>
+            <p className="text-gray-300 mb-2">{selectedCpuType}</p>
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Selected Plan:</h3>
+            <p className="text-gray-300 mb-2">{selectedPlan.name}</p>
+            <p className="text-gray-300 mb-2">{selectedPlan.description}</p>
+            <p className="text-gray-300">{selectedPlan.specifications}</p>
+            <h3 className="text-xl font-semibold mb-2 text-yellow-400">IPv4 Address:</h3>
+            <p className="text-gray-300 mb-2">{ipv4Address}</p>
+          </div>
+          <p className="text-gray-300">You can now access your VPS with the provided details.</p>
+        </section>
+      )}
+
     </main>
   );
 };

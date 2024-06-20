@@ -2,13 +2,53 @@
 "use client";
 
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
-export default function Home() {
+export default function Home({ initialFormData }) {
   const [step, setStep] = useState(1);
+  const [signupSuccess, setSignupSuccess] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: initialFormData.firstName || '',
+    lastName: initialFormData.lastName || '',
+    email: initialFormData.email || '',
+    password: initialFormData.password || ''
+  });
 
   const handleCreateCloud = () => {
     setStep(2);
   };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    
+    try {
+      const response = await fetch('/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSignupSuccess(true); // Set state to redirect after successful signup
+      } else {
+        // Handle error scenario (e.g., display error message to user)
+        console.error('Signup request failed');
+      }
+    } catch (error) {
+      console.error('Error occurred during signup:', error);
+    }
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  if (signupSuccess) {
+    return <Redirect to="/" />; // Redirect to the home page after successful signup
+  }
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-10 bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
@@ -31,22 +71,22 @@ export default function Home() {
       {/* Main Content */}
       <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
         <h2 className="text-2xl font-semibold mb-4">Signup for TrestHost</h2>
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleFormSubmit}>
           <div>
             <label htmlFor="firstName" className="block text-left mb-2">First Name</label>
-            <input type="text" id="firstName" name="firstName" className="border border-gray-300 rounded-lg px-3 py-2 w-full" />
+            <input type="text" id="firstName" name="firstName" className="border border-gray-300 rounded-lg px-3 py-2 w-full" onChange={handleInputChange} value={formData.firstName} required />
           </div>
           <div>
             <label htmlFor="lastName" className="block text-left mb-2">Last Name</label>
-            <input type="text" id="lastName" name="lastName" className="border border-gray-300 rounded-lg px-3 py-2 w-full" />
+            <input type="text" id="lastName" name="lastName" className="border border-gray-300 rounded-lg px-3 py-2 w-full" onChange={handleInputChange} value={formData.lastName} required />
           </div>
           <div className="col-span-2">
-            <label htmlFor="email" className="block text-left mb-2">Email Address</label>
-            <input type="email" id="email" name="email" className="border border-gray-300 rounded-lg px-3 py-2 w-full" />
+            <label htmlFor="email" className="block text-left mb-2">Enter Email:</label>
+            <input type="email" id="email" name="email" className="border border-gray-300 rounded-lg px-3 py-2 w-full" onChange={handleInputChange} value={formData.email} required />
           </div>
           <div className="col-span-2">
             <label htmlFor="password" className="block text-left mb-2">Password</label>
-            <input type="password" id="password" name="password" className="border border-gray-300 rounded-lg px-3 py-2 w-full" />
+            <input type="password" id="password" name="password" className="border border-gray-300 rounded-lg px-3 py-2 w-full" onChange={handleInputChange} value={formData.password} required />
           </div>
           <div className="col-span-2">
             <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">

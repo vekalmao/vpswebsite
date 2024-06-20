@@ -13,7 +13,7 @@ const SignUp = () => {
     // Replace this with your actual signup API call
     try {
       // Assuming 'api/signup' is your backend endpoint for signing up
-      const response = await fetch('/api/signup', {
+      const response = await fetch('/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

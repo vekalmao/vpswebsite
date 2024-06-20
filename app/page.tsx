@@ -52,7 +52,7 @@ export default function Home() {
       {/* Cloud Server Setup Section */}
       {step === 1 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4">Let's Get Your New Cloud Server Setup</h2>
+          <h2 className="text-2xl font-semibold mb-4">Let&apos;s Get Your New Cloud Server Setup</h2>
           <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300" onClick={handleCreateCloud}>
             Create Cloud Server
           </button>
@@ -96,4 +96,3 @@ export default function Home() {
       </footer>
     </main>
   );
-}

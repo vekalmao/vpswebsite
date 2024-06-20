@@ -9,7 +9,9 @@ export default function Home() {
   // State variables
   const [step, setStep] = useState(1);
   const [serverName, setServerName] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState<string>(''); // Specify selectedLocation as string
+  const [selectedLocation, setSelectedLocation] = useState<string>('');
+  const [vpsCreated, setVpsCreated] = useState<boolean>(false);
+  const [ipv4Address, setIpv4Address] = useState<string>(''); // State for IPv4 address
 
   // Event handler for advancing to step 2
   const handleCreateCloud = () => {
@@ -24,9 +26,25 @@ export default function Home() {
   };
 
   // Event handler for selecting a location and advancing to step 3
-  const handleSelectLocation = (location: string) => { // Specify location parameter as string
+  const handleSelectLocation = (location: string) => {
     setSelectedLocation(location);
     setStep(3);
+  };
+
+  // Event handler for submitting server setup
+  const handleSubmit = () => {
+    // Placeholder for logic to submit server setup
+    // For now, simulate creation of VPS and generate random IPv4 address
+    setVpsCreated(true);
+    const randomIpv4 = generateRandomIpv4();
+    setIpv4Address(randomIpv4);
+    setStep(4); // Advance to step 4 after submission
+  };
+
+  // Function to generate a random IPv4 address
+  const generateRandomIpv4 = (): string => {
+    const ipOctet = () => Math.floor(Math.random() * 256);
+    return `${ipOctet()}.${ipOctet()}.${ipOctet()}.${ipOctet()}`;
   };
 
   return (
@@ -94,10 +112,21 @@ export default function Home() {
             <p className="text-lg mb-4 text-blue-600">Location: {selectedLocation}</p>
             <button 
               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-              onClick={() => console.log('Submit button clicked')} // Replace with your submit logic
+              onClick={handleSubmit}
             >
               Submit
             </button>
+          </>
+        )}
+
+        {step === 4 && (
+          <>
+            <h2 className="text-2xl font-semibold mb-4 text-blue-600">Dashboard - Servers Tab</h2>
+            <p className="text-lg mb-4 text-blue-600">Your Servers:</p>
+            {vpsCreated && (
+              <p className="text-lg mb-4 text-blue-600">ssh root@{ipv4Address}</p>
+            )}
+            <p className="text-lg mb-4 text-blue-600">Additional content or actions can be placed here...</p>
           </>
         )}
       </section>

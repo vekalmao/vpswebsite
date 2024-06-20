@@ -1,9 +1,12 @@
 // page.tsx
 
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useClient } from 'next/client'; // Import useClient from next/client
+import { Redirect } from 'react-router-dom'; // Assuming you are using react-router-dom for Redirect
 
-const Home = () => {
+const Page = () => {
+  useClient(); // Mark this component as a client-side component
+
   const [signupSuccess, setSignupSuccess] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -99,4 +102,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Page;

@@ -3,30 +3,32 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
+type LocationType = string; // Define a type for location if needed
+
 const Home = () => {
-  const [step, setStep] = useState(1);
-  const [serverName, setServerName] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('');
-  const [selectedCpuType, setSelectedCpuType] = useState('');
-  const [selectedPlan, setSelectedPlan] = useState('');
-  const [vpsCreated, setVpsCreated] = useState(false);
-  const [ipv4Address, setIpv4Address] = useState('');
+  const [step, setStep] = useState<number>(1);
+  const [serverName, setServerName] = useState<string>('');
+  const [selectedLocation, setSelectedLocation] = useState<LocationType>(''); // Set the type for selectedLocation
+  const [selectedCpuType, setSelectedCpuType] = useState<string>('');
+  const [selectedPlan, setSelectedPlan] = useState<any>(''); // Adjust the type as per your plan object
+  const [vpsCreated, setVpsCreated] = useState<boolean>(false);
+  const [ipv4Address, setIpv4Address] = useState<string>('');
 
   const handleSaveServerName = () => {
     setStep(2);
   };
 
-  const handleSelectLocation = (location) => {
+  const handleSelectLocation = (location: LocationType) => { // Explicitly define the type for location
     setSelectedLocation(location);
     setStep(3);
   };
 
-  const handleSelectCpuType = (cpuType) => {
+  const handleSelectCpuType = (cpuType: string) => {
     setSelectedCpuType(cpuType);
     setStep(4);
   };
 
-  const handleSelectPlan = (plan) => {
+  const handleSelectPlan = (plan: any) => { // Adjust the type as per your plan object
     setSelectedPlan(plan);
     setStep(5);
   };
@@ -80,12 +82,12 @@ const Home = () => {
     { name: 'DX-06', description: 'Extreme power for specialized tasks', specifications: '128GB of RAM, 64 Cores, 3200GB of Storage' }
   ];
 
-  const handleRegister = (e) => {
+  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     alert('Registration successful!');
   };
 
-  const additionalLocations = [
+  const additionalLocations: LocationType[] = [
     'Ashburn Virginia',
     'Frankfurt - Germany'
   ];
@@ -126,7 +128,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Create Cloud VPS Button */}
       <section className="text-center mb-8">
         <button
           className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300"
@@ -136,7 +137,6 @@ const Home = () => {
         </button>
       </section>
 
-      {/* Our Features */}
       <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-left">
         <h2 className="text-3xl font-semibold mb-4 text-yellow-400">Our Features</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -155,7 +155,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Cloud VPS Setup Sections */}
       {step === 1 && (
         <section className="w-full max-w-5xl p-8 text-center">
           <h2 className="text-3xl font-semibold mb-4">Setup Your Cloud VPS</h2>
@@ -271,7 +270,6 @@ const Home = () => {
         </section>
       )}
 
-      {/* Footer */}
       <footer className="w-full max-w-5xl flex justify-between items-center p-8 border-t border-gray-300 mt-auto">
         <p className="text-gray-600">&copy; 2024 LylaNodes. All rights reserved.</p>
         <ul className="flex space-x-4">

@@ -10,6 +10,7 @@ export default function Home() {
   const [step, setStep] = useState(1);
   const [serverName, setServerName] = useState('');
   const [selectedLocation, setSelectedLocation] = useState<string>('');
+  const [selectedPlan, setSelectedPlan] = useState<string>('');
   const [vpsCreated, setVpsCreated] = useState<boolean>(false);
   const [ipv4Address, setIpv4Address] = useState<string>(''); // State for IPv4 address
 
@@ -31,6 +32,12 @@ export default function Home() {
     setStep(3);
   };
 
+  // Event handler for selecting a plan and advancing to step 4
+  const handleSelectPlan = (plan: string) => {
+    setSelectedPlan(plan);
+    setStep(4);
+  };
+
   // Event handler for submitting server setup
   const handleSubmit = () => {
     // Placeholder for logic to submit server setup
@@ -38,7 +45,7 @@ export default function Home() {
     setVpsCreated(true);
     const randomIpv4 = generateRandomIpv4();
     setIpv4Address(randomIpv4);
-    setStep(4); // Advance to step 4 after submission
+    setStep(5); // Advance to step 5 after submission
   };
 
   // Function to generate a random IPv4 address
@@ -46,6 +53,25 @@ export default function Home() {
     const ipOctet = () => Math.floor(Math.random() * 256);
     return `${ipOctet()}.${ipOctet()}.${ipOctet()}.${ipOctet()}`;
   };
+
+  // Plan details for Shared and Dedicated plans
+  const sharedPlans = [
+    { name: 'CX-01', description: 'Cheap for small projects', specifications: '1GB of RAM, 1 Core, 20GB of Storage' },
+    { name: 'CX-02', description: 'Affordable for startups', specifications: '2GB of RAM, 2 Cores, 40GB of Storage' },
+    { name: 'CX-03', description: 'Balanced for growing applications', specifications: '4GB of RAM, 2 Cores, 80GB of Storage' },
+    { name: 'CX-04', description: 'Powerful for multiple applications', specifications: '8GB of RAM, 4 Cores, 160GB of Storage' },
+    { name: 'CX-05', description: 'High-performance for intensive tasks', specifications: '16GB of RAM, 6 Cores, 320GB of Storage' },
+    { name: 'CX-06', description: 'Ultimate for enterprise-grade solutions', specifications: '32GB of RAM, 8 Cores, 640GB of Storage' }
+  ];
+
+  const dedicatedPlans = [
+    { name: 'DX-01', description: 'Prices are mid, for big projects', specifications: '4GB of RAM, 4 Cores, 100GB of Storage' },
+    { name: 'DX-02', description: 'Balanced for growing applications', specifications: '8GB of RAM, 4 Cores, 200GB of Storage' },
+    { name: 'DX-03', description: 'Powerful for multiple applications', specifications: '16GB of RAM, 8 Cores, 400GB of Storage' },
+    { name: 'DX-04', description: 'High-performance for intensive tasks', specifications: '32GB of RAM, 16 Cores, 800GB of Storage' },
+    { name: 'DX-05', description: 'Ultimate for enterprise-grade solutions', specifications: '64GB of RAM, 32 Cores, 1600GB of Storage' },
+    { name: 'DX-06', description: 'Extreme power for specialized tasks', specifications: '128GB of RAM, 64 Cores, 3200GB of Storage' }
+  ];
 
   return (
     // Main container with styles
@@ -107,9 +133,45 @@ export default function Home() {
 
         {step === 3 && (
           <>
-            <h2 className="text-2xl font-semibold mb-4 text-blue-600">Review Your Cloud Server Setup</h2>
-            <p className="text-lg mb-4 text-blue-600">Server Name: {serverName}</p>
-            <p className="text-lg mb-4 text-blue-600">Location: {selectedLocation}</p>
+            <h2 className="text-2xl font-semibold mb-4 text-blue-600">Pick Your Plan</h2>
+            <div className="grid grid-cols-3 gap-8 mb-8">
+              {/* Display shared plans */}
+              {sharedPlans.map((plan, index) => (
+                <div key={index} className="bg-gray-100 rounded-lg p-4 cursor-pointer hover:bg-gray-200 transition duration-300" onClick={() => handleSelectPlan(plan.name)}>
+                  <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
+                  <p className="text-sm text-gray-600">{plan.description}</p>
+                  <p className="text-sm text-gray-600">{plan.specifications}</p>
+                </div>
+              ))}
+              {/* Display dedicated plans */}
+              {dedicatedPlans.map((plan, index) => (
+                <div key={index} className="bg-gray-100 rounded-lg p-4 cursor-pointer hover:bg-gray-200 transition duration-300" onClick={() => handleSelectPlan(plan.name)}>
+                  <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
+                  <p className="text-sm text-gray-600">{plan.description}</p>
+                  <p className="text-sm text-gray-600">{plan.specifications}</p>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        {step === 4 && (
+          <>
+            <h2 className="text-2xl font-semibold mb-4 text-blue-600">{selectedPlan} Details</h2>
+            <div className="bg-gray-100 rounded-lg p-4">
+              {/* Display plan details */}
+              <h3 className="text-xl font-semibold mb-2 text-blue-600">{selectedPlan}</h3>
+              {selectedPlan.startsWith('CX') ? (
+                <p className="text-sm text-gray-600">Cheap for small projects</p>
+              ) : (
+                <p className="text-sm text-gray-600">Prices are mid, for big projects</p>
+              )}
+              {selectedPlan.startsWith('CX') ? (
+                <p className="text-sm text-gray-600">1GB of RAM, 1 Core, 20GB of Storage</p>
+              ) : (
+                <p className="text-sm text-gray-600">4GB of RAM, 4 Cores, 100GB of Storage</p>
+              )}
+            </div>
             <button 
               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
               onClick={handleSubmit}
@@ -119,15 +181,15 @@ export default function Home() {
           </>
         )}
 
-        {step === 4 && (
+        {step === 5 && (
           <>
             <h2 className="text-2xl font-semibold mb-4 text-blue-600">Your Servers</h2>
-            <div className="bg-gray-100 rounded-lg p-4 my-4">
-              <p className="text-lg text-blue-600">Server Name: {serverName}</p>
-              <p className="text-lg text-blue-600">IP: {ipv4Address}</p>
-              <p className="text-lg text-blue-600">ssh root@{ipv4Address}</p>
+            <div className="bg-gray-100 rounded-lg p-4">
+              {/* Display server details */}
+              <h3 className="text-xl font-semibold mb-2 text-blue-600">Server Name: {serverName}</h3>
+              <p className="text-sm text-gray-600">IP: {ipv4Address}</p>
+              <p className="text-sm text-gray-600">ssh root@{ipv4Address}</p>
             </div>
-            <p className="text-lg mb-4 text-blue-600">Additional content or actions can be placed here...</p>
           </>
         )}
       </section>

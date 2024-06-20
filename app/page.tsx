@@ -136,7 +136,7 @@ const Home = () => {
 
       {step === 1 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Let's Get Your New Cloud Server Setup</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Let&apos;s Get Your New Cloud Server Setup</h2>
           <div className="mb-4">
             <label className="block text-left mb-2 text-blue-600">Enter a name for your cloud server:</label>
             <input 
@@ -147,7 +147,7 @@ const Home = () => {
             />
           </div>
           <button 
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mt-2 transition duration-300"
             onClick={handleSaveServerName}
           >
             Next
@@ -266,6 +266,7 @@ const Home = () => {
 };
 
 export default Home;
+
 
 
 

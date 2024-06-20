@@ -1,7 +1,7 @@
-import Image from 'next/image';
+import React from 'react'; // Import React
 
 export default function Home() {
-  const [step, setStep] = React.useState(1); // Using React.useState instead of useState
+  const [step, setStep] = React.useState(1); // Use React.useState instead of useState
 
   const handleCreateCloud = () => {
     setStep(2); // Proceed to step 2 on button click
@@ -47,7 +47,7 @@ export default function Home() {
         {/* Step 2: Cloud Server Configuration */}
         {step === 2 && (
           <div className="text-left">
-            <h3 className="text-blue-500 text-xl font-semibold mb-4">Let&apos;s get your new cloud server setup</h3>
+            <h3 className="text-blue-500 text-xl font-semibold mb-4">Let's get your new cloud server setup</h3>
             <button
               onClick={handlePreviousStep}
               className="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-md shadow-md mr-4 transition duration-300"

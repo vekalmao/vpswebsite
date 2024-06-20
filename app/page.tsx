@@ -9,17 +9,24 @@ export default function Home() {
   // State variables
   const [step, setStep] = useState(1);
   const [serverName, setServerName] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('');
 
   // Event handler for advancing to step 2
   const handleCreateCloud = () => {
     setStep(2);
   };
 
-  // Event handler for saving server name (if needed)
+  // Event handler for saving server name and advancing to step 2
   const handleSaveServerName = () => {
-    // Placeholder for logic to save server name
+    // Placeholder for logic to save server name (if needed)
     // For now, we simply advance to the next step
     setStep(2);
+  };
+
+  // Event handler for selecting a location and advancing to step 3
+  const handleSelectLocation = (location) => {
+    setSelectedLocation(location);
+    setStep(3);
   };
 
   return (
@@ -43,87 +50,57 @@ export default function Home() {
 
       {/* Main Content section */}
       <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-        <h2 className="text-2xl font-semibold mb-4 text-purple-600">VirtuHost</h2>
-        <p className="text-sm mb-4 text-purple-600">Your Premier VPS Hosting Solution. Elevate Your Web Presence with Top-Tier Services!</p>
-        <div className="grid grid-cols-2 gap-8">
-          <a href="#" className="bg-gray-100 rounded-lg p-6 hover:bg-gray-200 transition duration-300">
-            <h3 className="text-xl font-semibold mb-2 text-purple-600">Dashboard</h3>
-            <p className="text-sm text-gray-600">Access your hosting dashboard for managing servers.</p>
-          </a>
-          <a href="#" className="bg-gray-100 rounded-lg p-6 hover:bg-gray-200 transition duration-300">
-            <h3 className="text-xl font-semibold mb-2 text-purple-600">Account Settings</h3>
-            <p className="text-sm text-gray-600">Manage your account settings and preferences.</p>
-          </a>
-          <a href="#" className="bg-gray-100 rounded-lg p-6 hover:bg-gray-200 transition duration-300">
-            <h3 className="text-xl font-semibold mb-2 text-purple-600">Our Services</h3>
-            <p className="text-sm text-gray-600">Explore the services we offer to enhance your hosting experience.</p>
-          </a>
-          <a href="#" className="bg-gray-100 rounded-lg p-6 hover:bg-gray-200 transition duration-300">
-            <h3 className="text-xl font-semibold mb-2 text-purple-600">Our Features</h3>
-            <p className="text-sm text-gray-600">Discover the top-tier features included in all our hosting plans.</p>
-          </a>
-        </div>
+        {step === 1 && (
+          <>
+            <h2 className="text-2xl font-semibold mb-4 text-purple-600">Let's Get Your New Cloud Server Setup</h2>
+            <div className="mb-4">
+              <label className="block text-left mb-2 text-purple-600">Enter a name for your cloud server:</label>
+              <input 
+                type="text" 
+                className="border border-gray-300 rounded-lg px-3 py-2 w-full" 
+                value={serverName} 
+                onChange={(e) => setServerName(e.target.value)} 
+              />
+            </div>
+            <button 
+              className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-300"
+              onClick={handleSaveServerName}
+            >
+              Next
+            </button>
+          </>
+        )}
+
+        {step === 2 && (
+          <>
+            <h2 className="text-2xl font-semibold mb-4 text-purple-600">Select Your Location</h2>
+            <div className="flex justify-center space-x-8 mb-8">
+              <div onClick={() => handleSelectLocation('Ashburn, Virginia')} className="cursor-pointer">
+                <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="USA" width={300} height={200} className="h-24 mb-2" />
+                <p className="text-gray-600">Ashburn, Virginia</p>
+              </div>
+              <div onClick={() => handleSelectLocation('Frankfurt, Germany')} className="cursor-pointer">
+                <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="Germany" width={300} height={200} className="h-24 mb-2" />
+                <p className="text-gray-600">Frankfurt, Germany</p>
+              </div>
+            </div>
+          </>
+        )}
+
+        {step === 3 && (
+          <>
+            <h2 className="text-2xl font-semibold mb-4 text-purple-600">Review Your Cloud Server Setup</h2>
+            <p className="text-lg mb-4">Server Name: {serverName}</p>
+            <p className="text-lg mb-4">Location: {selectedLocation}</p>
+            <button 
+              className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-300"
+              onClick={() => console.log('Submit button clicked')} // Replace with your submit logic
+            >
+              Submit
+            </button>
+          </>
+        )}
       </section>
-
-      {/* Cloud Server Setup Section */}
-      {step === 1 && (
-        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-purple-600">Let&apos;s Get Your New Cloud Server Setup</h2>
-          <div className="mb-4">
-            <label className="block text-left mb-2 text-purple-600">Enter a name for your cloud server:</label>
-            <input 
-              type="text" 
-              className="border border-gray-300 rounded-lg px-3 py-2 w-full" 
-              value={serverName} 
-              onChange={(e) => setServerName(e.target.value)} 
-            />
-          </div>
-          <button 
-            className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-300"
-            onClick={handleSaveServerName}
-          >
-            Next
-          </button>
-        </section>
-      )}
-
-      {/* Cloud Server Location Selection Section */}
-      {step === 2 && (
-        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-purple-600">Select Your Location</h2>
-          <div className="flex justify-center space-x-8 mb-8">
-            <div>
-              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="USA" width={300} height={200} className="h-24 mb-2" />
-              <p className="text-gray-600">Ashburn, Virginia</p>
-            </div>
-            <div>
-              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="Germany" width={300} height={200} className="h-24 mb-2" />
-              <p className="text-gray-600">Frankfurt, Germany</p>
-            </div>
-          </div>
-          <button 
-            className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-300"
-            onClick={() => setStep(3)}
-          >
-            Next
-          </button>
-        </section>
-      )}
-
-      {/* Cloud Server Project Type Selection Section */}
-      {step === 3 && (
-        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-purple-600">Choose Your Project</h2>
-          <div className="grid grid-cols-2 gap-8">
-            <button className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-300">
-              Shared CPU
-            </button>
-            <button className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-300">
-              Dedicated CPU
-            </button>
-          </div>
-        </section>
-      )}
 
       {/* Footer section */}
       <footer className="mt-16 mb-4 text-center text-gray-500 text-sm">

@@ -1,4 +1,6 @@
-// pages/index.tsx
+// Add the "use client" directive at the top of the file
+"use client";
+
 import React, { useState } from 'react';
 import Image from 'next/image';
 
@@ -62,7 +64,6 @@ const Home = () => {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-10 bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
-      {/* Header section */}
       <header className="w-full max-w-5xl flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-blue-600">LylaNodes</h1>
@@ -78,128 +79,142 @@ const Home = () => {
         </nav>
       </header>
 
-      {/* Main Content section */}
-      <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-        {step === 1 && (
-          <>
-            <h2 className="text-2xl font-semibold mb-4 text-blue-600">Let&apos;s Get Your New Cloud Server Setup</h2>
-            <div className="mb-4">
-              <label className="block text-left mb-2 text-blue-600">Enter a name for your cloud server:</label>
-              <input 
-                type="text" 
-                className="border border-gray-300 rounded-lg px-3 py-2 w-full text-blue-600" // Text color set to blue
-                value={serverName} 
-                onChange={(e) => setServerName(e.target.value)} 
-              />
+      {step === 1 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Let&apos;s Get Your New Cloud Server Setup</h2>
+          <div className="mb-4">
+            <label className="block text-left mb-2 text-blue-600">Enter a name for your cloud server:</label>
+            <input 
+              type="text" 
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full text-blue-600" 
+              value={serverName} 
+              onChange={(e) => setServerName(e.target.value)} 
+            />
+          </div>
+          <button 
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            onClick={handleSaveServerName}
+          >
+            Next
+          </button>
+        </section>
+      )}
+
+      {step === 2 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Select Your Location</h2>
+          <div className="flex justify-center space-x-8 mb-8">
+            <div onClick={() => handleSelectLocation('Ashburn, Virginia')} className="cursor-pointer">
+              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="USA" width={300} height={200} className="h-24 mb-2" />
+              <p className="text-gray-600">Ashburn, Virginia</p>
             </div>
+            <div onClick={() => handleSelectLocation('Frankfurt, Germany')} className="cursor-pointer">
+              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="Germany" width={300} height={200} className="h-24 mb-2" />
+              <p className="text-gray-600">Frankfurt, Germany</p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {step === 3 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Choose Your CPU Type</h2>
+          <div className="flex justify-center space-x-8 mb-8">
             <button 
               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-              onClick={handleSaveServerName}
+              onClick={() => handleSelectCpuType('Shared')}
             >
-              Next
+              Shared CPU
             </button>
-          </>
-        )}
-
-        {step === 2 && (
-          <>
-            <h2 className="text-2xl font-semibold mb-4 text-blue-600">Select Your Location</h2>
-            <div className="flex justify-center space-x-8 mb-8">
-              <div onClick={() => handleSelectLocation('Ashburn, Virginia')} className="cursor-pointer">
-                <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="USA" width={300} height={200} className="h-24 mb-2" />
-                <p className="text-gray-600">Ashburn, Virginia</p>
-              </div>
-              <div onClick={() => handleSelectLocation('Frankfurt, Germany')} className="cursor-pointer">
-                <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="Germany" width={300} height={200} className="h-24 mb-2" />
-                <p className="text-gray-600">Frankfurt, Germany</p>
-              </div>
-            </div>
-          </>
-        )}
-
-        {step === 3 && (
-          <>
-            <h2 className="text-2xl font-semibold mb-4 text-blue-600">Choose Your CPU Type</h2>
-            <div className="flex justify-center space-x-8 mb-8">
-              <button 
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-                onClick={() => handleSelectCpuType('Shared')}
-              >
-                Shared CPU
-              </button>
-              <button 
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-                onClick={() => handleSelectCpuType('Dedicated')}
-              >
-                Dedicated CPU
-              </button>
-            </div>
-          </>
-        )}
-
-        {step === 4 && (
-          <>
-            <h2 className="text-2xl font-semibold mb-4 text-blue-600">{selectedCpuType === 'Shared' ? 'Shared CPU' : 'Dedicated CPU'} Plans</h2>
-            <div className="grid grid-cols-2 gap-8">
-              {selectedCpuType === 'Shared' ? (
-                sharedPlans.map((plan) => (
-                  <div key={plan.name} className="bg-gray-100 rounded-lg p-4 cursor-pointer hover:bg-gray-200 transition duration-300" onClick={() => handleSelectPlan(plan.name)}>
-                    <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
-                    <p className="text-sm text-gray-600">{plan.description}</p>
-                    <p className="text-sm text-gray-600">{plan.specifications}</p>
-                  </div>
-                ))
-              ) : (
-                dedicatedPlans.map((plan) => (
-                  <div key={plan.name} className="bg-gray-100 rounded-lg p-4 cursor-pointer hover:bg-gray-200 transition duration-300" onClick={() => handleSelectPlan(plan.name)}>
-                    <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
-                    <p className="text-sm text-gray-600">{plan.description}</p>
-                    <p className="text-sm text-gray-600">{plan.specifications}</p>
-                  </div>
-                ))
-              )}
-            </div>
-          </>
-        )}
-
-        {step === 5 && (
-          <>
-            <h2 className="text-2xl font-semibold mb-4 text-blue-600">{selectedPlan} Details</h2>
-            <div className="bg-gray-100 rounded-lg p-4">
-              <h3 className="text-xl font-semibold mb-2 text-blue-600">{selectedPlan}</h3>
-              {selectedPlan.startsWith('CX') ? (
-                <p className="text-sm text-gray-600">Cheap for small projects</p>
-              ) : (
-                <p className="text-sm text-gray-600">Prices are mid, for big projects</p>
-              )}
-              {selectedPlan.startsWith('CX') ? (
-                <p className="text-sm text-gray-600">1GB of RAM, 1 Core, 20GB of Storage</p>
-              ) : (
-                <p className="text-sm text-gray-600">4GB of RAM, 4 Cores, 100GB of Storage</p>
-              )}
-            </div>
             <button 
               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-              onClick={handleSubmit}
+              onClick={() => handleSelectCpuType('Dedicated')}
             >
-              Submit
+              Dedicated CPU
             </button>
-          </>
-        )}
+          </div>
+        </section>
+      )}
 
-        {step === 6 && (
-          <>
-            <h2 className="text-2xl font-semibold mb-4 text-blue-600">Your Servers</h2>
-            <div className="bg-gray-100 rounded-lg p-4">
-              <h3 className="text-xl font-semibold mb-2 text-blue-600">Server Name: {serverName}</h3>
-              <p className="text-sm text-gray-600">IP: {ipv4Address}</p>
-              <p className="text-sm text-gray-600">ssh root@{ipv4Address}</p>
-            </div>
-          </>
-        )}
-      </section>
+      {step === 4 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">{selectedCpuType === 'Shared' ? 'Shared CPU' : 'Dedicated CPU'} Plans</h2>
+          <div className="grid grid-cols-2 gap-8">
+            {selectedCpuType === 'Shared' ? (
+              sharedPlans.map((plan) => (
+                <div key={plan.name} className="bg-gray-100 rounded-lg p-4 cursor-pointer hover:bg-gray-200 transition duration-300" onClick={() => handleSelectPlan(plan.name)}>
+                  <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
+                  <p className="text-sm text-gray-600">{plan.description}</p>
+                  <p className="text-sm text-gray-600">{plan.specifications}</p>
+                </div>
+              ))
+            ) : (
+              dedicatedPlans.map((plan) => (
+                <div key={plan.name} className="bg-gray-100 rounded-lg p-4 cursor-pointer hover:bg-gray-200 transition duration-300" onClick={() => handleSelectPlan(plan.name)}>
+                  <h3 className="text-xl font-semibold mb-2 text-blue-600">{plan.name}</h3>
+                  <p className="text-sm text-gray-600">{plan.description}</p>
+                  <p className="text-sm text-gray-600">{plan.specifications}</p>
+                </div>
+              ))
+            )}
+          </div>
+        </section>
+      )}
 
-      {/* Footer section */}
+      {step === 5 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Confirm Your Selections</h2>
+          <p className="text-lg text-gray-600 mb-4">
+            Server Name: <span className="font-semibold">{serverName}</span>
+          </p>
+          <p className="text-lg text-gray-600 mb-4">
+            Location: <span className="font-semibold">{selectedLocation}</span>
+          </p>
+          <p className="text-lg text-gray-600 mb-4">
+            CPU Type: <span className="font-semibold">{selectedCpuType}</span>
+          </p>
+          <p className="text-lg text-gray-600 mb-4">
+            Plan: <span className="font-semibold">{selectedPlan}</span>
+          </p>
+          <button 
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            onClick={handleSubmit}
+          >
+            Create Cloud VPS
+          </button>
+        </section>
+      )}
+
+      {step === 6 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Cloud VPS Created Successfully!</h2>
+          <p className="text-lg text-gray-600 mb-4">
+            Server Name: <span className="font-semibold">{serverName}</span>
+          </p>
+          <p className="text-lg text-gray-600 mb-4">
+            Location: <span className="font-semibold">{selectedLocation}</span>
+          </p>
+          <p className="text-lg text-gray-600 mb-4">
+            CPU Type: <span className="font-semibold">{selectedCpuType}</span>
+          </p>
+          <p className="text-lg text-gray-600 mb-4">
+            Plan: <span className="font-semibold">{selectedPlan}</span>
+          </p>
+          <p className="text-lg text-gray-600 mb-4">
+            IPv4 Address: <span className="font-semibold">{ipv4Address}</span>
+          </p>
+          <p className="text-lg text-gray-600 mb-4">
+            <Image src="/success-icon.png" alt="Success" width={100} height={100} />
+          </p>
+          <button 
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            onClick={() => setStep(1)}
+          >
+            Create Another Cloud VPS
+          </button>
+        </section>
+      )}
+
       <footer className="mt-16 mb-4 text-center text-gray-500 text-sm">
         <p>&copy; 2019 - 2024 - All Rights Reserved. Made with ❤️ by LylaNodes</p>
         <div className="mt-4 flex justify-center space-x-4">

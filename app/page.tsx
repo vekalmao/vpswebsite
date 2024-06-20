@@ -1,62 +1,39 @@
 "use client";
 
+
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-// Plans data
-const sharedPlans = [
-  { name: 'CX-01', description: 'Cheap for small projects', specifications: '1GB of RAM, 1 Core, 20GB of Storage' },
-  { name: 'CX-02', description: 'Affordable for startups', specifications: '2GB of RAM, 2 Cores, 40GB of Storage' },
-  { name: 'CX-03', description: 'Balanced for growing applications', specifications: '4GB of RAM, 2 Cores, 80GB of Storage' },
-  { name: 'CX-04', description: 'Powerful for multiple applications', specifications: '8GB of RAM, 4 Cores, 160GB of Storage' },
-  { name: 'CX-05', description: 'High-performance for intensive tasks', specifications: '16GB of RAM, 6 Cores, 320GB of Storage' },
-  { name: 'CX-06', description: 'Ultimate for enterprise-grade solutions', specifications: '32GB of RAM, 8 Cores, 640GB of Storage' }
-];
-
-const dedicatedPlans = [
-  { name: 'DX-01', description: 'Prices are mid, for big projects', specifications: '4GB of RAM, 4 Cores, 100GB of Storage' },
-  { name: 'DX-02', description: 'Balanced for growing applications', specifications: '8GB of RAM, 4 Cores, 200GB of Storage' },
-  { name: 'DX-03', description: 'Powerful for multiple applications', specifications: '16GB of RAM, 8 Cores, 400GB of Storage' },
-  { name: 'DX-04', description: 'High-performance for intensive tasks', specifications: '32GB of RAM, 16 Cores, 800GB of Storage' },
-  { name: 'DX-05', description: 'Ultimate for enterprise-grade solutions', specifications: '64GB of RAM, 32 Cores, 1600GB of Storage' },
-  { name: 'DX-06', description: 'Extreme power for specialized tasks', specifications: '128GB of RAM, 64 Cores, 3200GB of Storage' }
-];
-
 const Home = () => {
-  const [step, setStep] = useState(0); // 0 for home page, then steps 1-6 for the setup process
+  const [step, setStep] = useState(1);
   const [serverName, setServerName] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState<string>('');
-  const [selectedCpuType, setSelectedCpuType] = useState<string>('');
-  const [selectedPlan, setSelectedPlan] = useState<any>(null); // Updated to hold selected plan object
-  const [vpsCreated, setVpsCreated] = useState<boolean>(false);
-  const [ipv4Address, setIpv4Address] = useState<string>('');
-
-  // Authentication states
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [selectedCpuType, setSelectedCpuType] = useState('');
+  const [selectedPlan, setSelectedPlan] = useState('');
+  const [vpsCreated, setVpsCreated] = useState(false);
+  const [ipv4Address, setIpv4Address] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isRegistered, setIsRegistered] = useState(false);
-
-  const handleRegister = () => {
-    // Simulate successful registration (in a real app, you'd send this data to a backend)
-    setIsRegistered(true);
-    setStep(1); // Move to the next step after registration
-  };
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSaveServerName = () => {
     setStep(2);
   };
 
-  const handleSelectLocation = (location: string) => {
+  const handleSelectLocation = (location) => {
     setSelectedLocation(location);
     setStep(3);
   };
 
-  const handleSelectCpuType = (cpuType: string) => {
+  const handleSelectCpuType = (cpuType) => {
     setSelectedCpuType(cpuType);
     setStep(4);
   };
 
-  const handleSelectPlan = (plan: any) => {
+  const handleSelectPlan = (plan) => {
     setSelectedPlan(plan);
     setStep(5);
   };
@@ -68,237 +45,297 @@ const Home = () => {
     setStep(6);
   };
 
-  const generateRandomIpv4 = (): string => {
+  const handleSetupCloudVPS = () => {
+    setStep(1);
+    setServerName('');
+    setSelectedLocation('');
+    setSelectedCpuType('');
+    setSelectedPlan('');
+    setVpsCreated(false);
+    setIpv4Address('');
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    // Validate the registration fields here
+    if (!firstName || !lastName || !email || !username || !password || !confirmPassword) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert('Passwords do not match.');
+      return;
+    }
+
+    // Proceed with registration logic
+    alert('Registration successful!'); // Replace with actual registration logic
+    // You can add further actions like API calls to register the user
+
+    // For demonstration purposes, resetting the form fields after registration
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setUsername('');
+    setPassword('');
+    setConfirmPassword('');
+  };
+
+  const generateRandomIpv4 = () => {
     const ipOctet = () => Math.floor(Math.random() * 256);
     return `${ipOctet()}.${ipOctet()}.${ipOctet()}.${ipOctet()}`;
   };
 
+  const sharedPlans = [
+    { name: 'CX-01', description: 'Cheap for small projects', specifications: '1GB of RAM, 1 Core, 20GB of Storage' },
+    { name: 'CX-02', description: 'Affordable for startups', specifications: '2GB of RAM, 2 Cores, 40GB of Storage' },
+    { name: 'CX-03', description: 'Balanced for growing applications', specifications: '4GB of RAM, 2 Cores, 80GB of Storage' },
+    { name: 'CX-04', description: 'Powerful for multiple applications', specifications: '8GB of RAM, 4 Cores, 160GB of Storage' },
+    { name: 'CX-05', description: 'High-performance for intensive tasks', specifications: '16GB of RAM, 6 Cores, 320GB of Storage' },
+    { name: 'CX-06', description: 'Ultimate for enterprise-grade solutions', specifications: '32GB of RAM, 8 Cores, 640GB of Storage' }
+  ];
+
+  const dedicatedPlans = [
+    { name: 'DX-01', description: 'Prices are mid, for big projects', specifications: '4GB of RAM, 4 Cores, 100GB of Storage' },
+    { name: 'DX-02', description: 'Balanced for growing applications', specifications: '8GB of RAM, 4 Cores, 200GB of Storage' },
+    { name: 'DX-03', description: 'Powerful for multiple applications', specifications: '16GB of RAM, 8 Cores, 400GB of Storage' },
+    { name: 'DX-04', description: 'High-performance for intensive tasks', specifications: '32GB of RAM, 16 Cores, 800GB of Storage' },
+    { name: 'DX-05', description: 'Ultimate for enterprise-grade solutions', specifications: '64GB of RAM, 32 Cores, 1600GB of Storage' },
+    { name: 'DX-06', description: 'Extreme power for specialized tasks', specifications: '128GB of RAM, 64 Cores, 3200GB of Storage' }
+  ];
+
+  const additionalLocations = [
+    'Asia',
+    'Europe',
+    'New York',
+    'Ashburn Virginia',
+    'Frankfurt - Germany'
+    // Add more locations as needed
+  ];
+
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
-      {/* Header and Navigation */}
-      <header className="w-full max-w-5xl flex items-center justify-between py-8">
+    <main className="flex flex-col items-center justify-center min-h-screen p-10 bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
+      <header className="w-full max-w-5xl flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-white">LylaNodes</h1>
-          <p className="text-sm text-white">/VirtuHost</p>
+          <h1 className="text-3xl font-bold text-blue-600">LylaNodes</h1>
+          <p className="text-sm text-blue-600">/VirtuHost</p>
         </div>
         <nav>
           <ul className="flex space-x-4">
-            <li><a href="#" className="text-white hover:text-yellow-400">Home</a></li>
-            <li><a href="#" className="text-white hover:text-yellow-400">Services</a></li>
-            <li><a href="#" className="text-white hover:text-yellow-400">Features</a></li>
-            <li><a href="#" className="text-white hover:text-yellow-400">Company</a></li>
-            <li>
-              <button
-                className="text-white hover:text-yellow-400"
-                onClick={() => setIsRegistered(false)}
-              >
-                Register
-              </button>
-            </li>
+            <li><a href="#" className="text-blue-600 hover:text-purple-900 dark:text-blue-400 dark:hover:text-blue-600">Home</a></li>
+            <li><a href="#" className="text-blue-600 hover:text-purple-900 dark:text-blue-400 dark:hover:text-blue-600">Services</a></li>
+            <li><a href="#" className="text-blue-600 hover:text-purple-900 dark:text-blue-400 dark:hover:text-blue-600">Features</a></li>
+            <li><a href="#" className="text-blue-600 hover:text-purple-900 dark:text-blue-400 dark:hover:text-blue-600">Company</a></li>
           </ul>
         </nav>
       </header>
 
-      {/* Registration Form */}
-      {isRegistered && (
-        <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Create an Account to Get Started</h2>
+      {step === 1 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Let's Get Your New Cloud Server Setup</h2>
           <div className="mb-4">
-            <label className="block text-left mb-2 text-gray-300">Email:</label>
-            <input
-              type="email"
-              className="border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 w-full"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+            <label className="block text-left mb-2 text-blue-600">Enter a name for your cloud server:</label>
+            <input 
+              type="text" 
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full text-blue-600" 
+              value={serverName} 
+              onChange={(e) => setServerName(e.target.value)} 
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-left mb-2 text-gray-300">Password:</label>
-            <input
-              type="password"
-              className="border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 w-full"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button
-            className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
-            onClick={handleRegister}
+          <button 
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            onClick={handleSaveServerName}
           >
-            Register
+            Next
           </button>
         </section>
       )}
 
-      {/* Affordable VPS Hosting */}
-      {!isRegistered && (
-        <section className="w-full max-w-5xl p-8 text-center">
-          <h2 className="text-5xl font-extrabold mb-8 text-white">Affordable VPS Hosting</h2>
-          <p className="text-xl text-gray-300 mb-12">Deploy your virtual private server in seconds with our high-performance hosting solutions.</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-yellow-400">VPS Hosting</h3>
-              <p className="text-lg text-gray-300">Starting at <span className="font-bold">$5.50/month</span></p>
-            </div>
-            <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Game Hosting</h3>
-              <p className="text-lg text-gray-300">Starting at <span className="font-bold">$4.40/month</span></p>
-            </div>
-            <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Lavalink Hosting</h3>
-              <p className="text-lg text-gray-300">Coming Soon</p>
-            </div>
+      {step === 2 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Select Your Location</h2>
+          <div className="flex justify-center space-x-8 mb-8">
+            {additionalLocations.map((location) => (
+              <div key={location} onClick={() => handleSelectLocation(location)} className="cursor-pointer">
+                <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt={location} width={300} height={200} className="h-24 mb-2" />
+                <p className="text-gray-600">{location}</p>
+              </div>
+            ))}
           </div>
-
-          {/* Our Features */}
-          <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-left">
-            <h2 className="text-3xl font-semibold mb-4 text-yellow-400">Our Features</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-gray-700 p-6 rounded-lg shadow-md text-left">
-                <h3 className="text-xl font-semibold mb-2 text-yellow-400">DDoS Protection</h3>
-                <p className="text-gray-300">We provide DDoS protection to ensure your server remains operational even under attack.</p>
-              </div>
-              <div className="bg-gray-700 p-6 rounded-lg shadow-md text-left">
-                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Fast Response Times</h3>
-                <p className="text-gray-300">Our servers are optimized for quick response times to keep your applications running smoothly.</p>
-              </div>
-              <div className="bg-gray-700 p-6 rounded-lg shadow-md text-left">
-                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Scalable Infrastructure</h3>
-                <p className="text-gray-300">Easily scale your infrastructure as your business grows with our flexible hosting solutions.</p>
-              </div>
-            </div>
-          </section>
-
-          {/* Setup Process */}
-          <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md text-left">
-            <h2 className="text-3xl font-semibold mb-4 text-yellow-400">Setup Your VPS</h2>
-            {/* Step 1: Save Server Name */}
-            {step === 1 && (
-              <div className="mb-8">
-                <label className="block text-left mb-2 text-gray-300">Server Name:</label>
-                <input
-                  type="text"
-                  className="border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 w-full"
-                  value={serverName}
-                  onChange={(e) => setServerName(e.target.value)}
-                />
-                <button
-                  className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300 ml-2 mt-4"
-                  onClick={handleSaveServerName}
-                >
-                  Save
-                </button>
-              </div>
-            )}
-
-            {/* Step 2: Select Location */}
-            {step === 2 && (
-              <div className="mb-8">
-                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Select Location:</h3>
-                <div className="flex flex-wrap justify-center gap-4">
-                  <button
-                    className={`border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 ${selectedLocation === 'New York' ? 'bg-yellow-400 text-gray-900' : ''}`}
-                    onClick={() => handleSelectLocation('New York')}
-                  >
-                    New York
-                  </button>
-                  <button
-                    className={`border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 ${selectedLocation === 'San Francisco' ? 'bg-yellow-400 text-gray-900' : ''}`}
-                    onClick={() => handleSelectLocation('San Francisco')}
-                  >
-                    San Francisco
-                  </button>
-                  <button
-                    className={`border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 ${selectedLocation === 'London' ? 'bg-yellow-400 text-gray-900' : ''}`}
-                    onClick={() => handleSelectLocation('London')}
-                  >
-                    London
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Step 3: Select CPU Type */}
-            {step === 3 && (
-              <div className="mb-8">
-                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Select CPU Type:</h3>
-                <div className="flex flex-wrap justify-center gap-4">
-                  <button
-                    className={`border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 ${selectedCpuType === 'Intel' ? 'bg-yellow-400 text-gray-900' : ''}`}
-                    onClick={() => handleSelectCpuType('Intel')}
-                  >
-                    Intel
-                  </button>
-                  <button
-                    className={`border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 ${selectedCpuType === 'AMD' ? 'bg-yellow-400 text-gray-900' : ''}`}
-                    onClick={() => handleSelectCpuType('AMD')}
-                  >
-                    AMD
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Step 4: Select Plan */}
-            {step === 4 && (
-              <div className="mb-8">
-                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Select Plan:</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {sharedPlans.map((plan, index) => (
-                    <div key={index} className="bg-gray-900 rounded-lg p-4 shadow-md text-left">
-                      <h4 className="text-lg font-semibold mb-2 text-yellow-400">{plan.name}</h4>
-                      <p className="text-gray-300 mb-2">{plan.description}</p>
-                      <p className="text-gray-400">{plan.specifications}</p>
-                      <button
-                        className={`mt-4 bg-yellow-400 text-gray-900 px-3 py-1 rounded-lg hover:bg-yellow-500 transition duration-300`}
-                        onClick={() => handleSelectPlan(plan)}
-                      >
-                        Select
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Step 5: Confirm and Create */}
-            {step === 5 && (
-              <div className="mb-8">
-                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Confirm Selections:</h3>
-                <div className="flex flex-col items-center">
-                  <p className="text-gray-300 mb-2"><span className="font-semibold">Server Name:</span> {serverName}</p>
-                  <p className="text-gray-300 mb-2"><span className="font-semibold">Location:</span> {selectedLocation}</p>
-                  <p className="text-gray-300 mb-2"><span className="font-semibold">CPU Type:</span> {selectedCpuType}</p>
-                  <p className="text-gray-300 mb-2"><span className="font-semibold">Plan:</span> {selectedPlan.name}</p>
-                  <button
-                    className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
-                    onClick={handleSubmit}
-                  >
-                    Create VPS
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Step 6: VPS Created */}
-            {step === 6 && (
-              <div>
-                <h3 className="text-xl font-semibold mb-2 text-yellow-400">VPS Successfully Created!</h3>
-                <p className="text-gray-300 mb-2">Server Name: {serverName}</p>
-                <p className="text-gray-300 mb-2">Location: {selectedLocation}</p>
-                <p className="text-gray-300 mb-2">CPU Type: {selectedCpuType}</p>
-                <p className="text-gray-300 mb-2">Plan: {selectedPlan.name}</p>
-                <p className="text-gray-300 mb-2">IPv4 Address: {ipv4Address}</p>
-              </div>
-            )}
-          </section>
         </section>
       )}
 
-      {/* Footer */}
-      <footer className="w-full max-w-5xl text-center py-8">
-        <p className="text-gray-300">© 2024 LylaNodes. All rights reserved.</p>
-      </footer>
+      {step === 3 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Choose Your CPU Type</h2>
+          <div className="flex justify-center space-x-8 mb-8">
+            <button 
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+              onClick={() => handleSelectCpuType('Shared')}
+            >
+              Shared CPU
+            </button>
+            <button 
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+              onClick={() => handleSelectCpuType('Dedicated')}
+            >
+              Dedicated CPU
+            </button>
+          </div>
+        </section>
+      )}
+
+      {step === 4 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Choose Your Plan</h2>
+          <div className="flex justify-center space-x-8 mb-8">
+            {selectedCpuType === 'Shared' ? (
+              sharedPlans.map((plan) => (
+                <div key={plan.name} className="text-left">
+                  <h3 className="text-lg font-semibold mb-2">{plan.name}</h3>
+                  <p className="text-gray-600">{plan.description}</p>
+                  <p className="text-sm text-gray-500">{plan.specifications}</p>
+                  <button 
+                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 mt-2"
+                    onClick={() => handleSelectPlan(plan.name)}
+                  >
+                    Select
+                  </button>
+                </div>
+              ))
+            ) : (
+              dedicatedPlans.map((plan) => (
+                <div key={plan.name} className="text-left">
+                  <h3 className="text-lg font-semibold mb-2">{plan.name}</h3>
+                  <p className="text-gray-600">{plan.description}</p>
+                  <p className="text-sm text-gray-500">{plan.specifications}</p>
+                  <button 
+                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 mt-2"
+                    onClick={() => handleSelectPlan(plan.name)}
+                  >
+                    Select
+                  </button>
+                </div>
+              ))
+            )}
+          </div>
+        </section>
+      )}
+
+      {step === 5 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Review and Confirm</h2>
+          <div className="text-left mb-4">
+            <p><span className="font-semibold">Server Name:</span> {serverName}</p>
+            <p><span className="font-semibold">Location:</span> {selectedLocation}</p>
+            <p><span className="font-semibold">CPU Type:</span> {selectedCpuType}</p>
+            <p><span className="font-semibold">Plan:</span> {selectedPlan}</p>
+          </div>
+          <button 
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            onClick={handleSubmit}
+          >
+            Setup Cloud VPS
+          </button>
+        </section>
+      )}
+
+      {step === 6 && (
+        <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Cloud VPS Setup Complete</h2>
+          <div className="text-left mb-4">
+            <p><span className="font-semibold">Server Name:</span> {serverName}</p>
+            <p><span className="font-semibold">Location:</span> {selectedLocation}</p>
+            <p><span className="font-semibold">CPU Type:</span> {selectedCpuType}</p>
+            <p><span className="font-semibold">Plan:</span> {selectedPlan}</p>
+            <p><span className="font-semibold">IPv4 Address:</span> {ipv4Address}</p>
+          </div>
+          <button 
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            onClick={handleSetupCloudVPS}
+          >
+            Setup Another Cloud VPS
+          </button>
+        </section>
+      )}
+
+      <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-600">Register</h2>
+        <form onSubmit={handleRegister} className="space-y-4">
+          <div className="flex flex-col">
+            <label htmlFor="firstName" className="text-blue-600">First Name:</label>
+            <input 
+              type="text" 
+              id="firstName" 
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full text-blue-600" 
+              value={firstName} 
+              onChange={(e) => setFirstName(e.target.value)} 
+              required 
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="lastName" className="text-blue-600">Last Name:</label>
+            <input 
+              type="text" 
+              id="lastName" 
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full text-blue-600" 
+              value={lastName} 
+              onChange={(e) => setLastName(e.target.value)} 
+              required 
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="email" className="text-blue-600">Email:</label>
+            <input 
+              type="email" 
+              id="email" 
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full text-blue-600" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              required 
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="username" className="text-blue-600">Username:</label>
+            <input 
+              type="text" 
+              id="username" 
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full text-blue-600" 
+              value={username} 
+              onChange={(e) => setUsername(e.target.value)} 
+              required 
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="password" className="text-blue-600">Password:</label>
+            <input 
+              type="password" 
+              id="password" 
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full text-blue-600" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required 
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="confirmPassword" className="text-blue-600">Confirm Password:</label>
+            <input 
+              type="password" 
+              id="confirmPassword" 
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full text-blue-600" 
+              value={confirmPassword} 
+              onChange={(e) => setConfirmPassword(e.target.value)} 
+              required 
+            />
+          </div>
+          <button 
+            type="submit" 
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+          >
+            Register
+          </button>
+        </form>
+      </section>
     </main>
   );
 };

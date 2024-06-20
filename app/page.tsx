@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Image from 'next/image'; // Import Image from next/image for optimized images
 
 // Functional component Home
 export default function Home() {
@@ -92,11 +93,11 @@ export default function Home() {
           <h2 className="text-2xl font-semibold mb-4 text-purple-600">Select Your Location</h2>
           <div className="flex justify-center space-x-8 mb-8">
             <div>
-              <img src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="USA" className="h-24 mb-2" />
+              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="USA" width={300} height={200} className="h-24 mb-2" />
               <p className="text-gray-600">Ashburn, Virginia</p>
             </div>
             <div>
-              <img src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="Germany" className="h-24 mb-2" />
+              <Image src="https://media.earlyexperts.net/wp-content/uploads/2018/12/displaying-american-flag.jpg" alt="Germany" width={300} height={200} className="h-24 mb-2" />
               <p className="text-gray-600">Frankfurt, Germany</p>
             </div>
           </div>

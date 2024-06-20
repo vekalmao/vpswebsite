@@ -1,5 +1,6 @@
 "use client";
 
+
 import React, { useState } from 'react';
 import Image from 'next/image';
 
@@ -130,188 +131,46 @@ const Home = () => {
         </section>
       )}
 
-      {/* VPS Creation Steps */}
+      {/* Affordable VPS Hosting */}
       {!isRegistered && (
-        <>
-          {step === 0 && (
-            <section className="w-full max-w-5xl p-8 text-center">
-              <h2 className="text-5xl font-extrabold mb-8 text-white">Affordable VPS Hosting</h2>
-              <p className="text-xl text-gray-300 mb-12">Deploy your virtual private server in seconds with our high-performance hosting solutions.</p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
-                  <h3 className="text-2xl font-semibold mb-4 text-yellow-400">VPS Hosting</h3>
-                  <p className="text-lg text-gray-300">Starting at <span className="font-bold">$5.50/month</span></p>
-                </div>
-                <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
-                  <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Game Hosting</h3>
-                  <p className="text-lg text-gray-300">Starting at <span className="font-bold">$4.40/month</span></p>
-                </div>
-                <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
-                  <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Lavalink Hosting</h3>
-                  <p className="text-lg text-gray-300">Coming Soon</p>
-                </div>
-              </div>
-              <button
-                className="bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg hover:bg-yellow-500 transition duration-300"
-                onClick={() => setStep(1)}
-              >
-                Create Cloud VPS
-              </button>
-            </section>
-          )}
+        <section className="w-full max-w-5xl p-8 text-center">
+          <h2 className="text-5xl font-extrabold mb-8 text-white">Affordable VPS Hosting</h2>
+          <p className="text-xl text-gray-300 mb-12">Deploy your virtual private server in seconds with our high-performance hosting solutions.</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-yellow-400">VPS Hosting</h3>
+              <p className="text-lg text-gray-300">Starting at <span className="font-bold">$5.50/month</span></p>
+            </div>
+            <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Game Hosting</h3>
+              <p className="text-lg text-gray-300">Starting at <span className="font-bold">$4.40/month</span></p>
+            </div>
+            <div className="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Lavalink Hosting</h3>
+              <p className="text-lg text-gray-300">Coming Soon</p>
+            </div>
+          </div>
 
-          {step === 1 && (
-            <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-              <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Let&apos;s Get Your New Cloud Server Setup</h2>
-              <div className="mb-4">
-                <label className="block text-left mb-2 text-gray-300">Enter a name for your cloud server:</label>
-                <input
-                  type="text"
-                  className="border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 w-full"
-                  value={serverName}
-                  onChange={(e) => setServerName(e.target.value)}
-                />
+          {/* Our Features */}
+          <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-left">
+            <h2 className="text-3xl font-semibold mb-4 text-yellow-400">Our Features</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-gray-700 p-6 rounded-lg shadow-md text-left">
+                <h3 className="text-xl font-semibold mb-2 text-yellow-400">DDoS Protection</h3>
+                <p className="text-gray-300">We provide DDoS protection to ensure your server remains operational even under attack.</p>
               </div>
-              <button
-                className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
-                onClick={handleSaveServerName}
-              >
-                Save Server Name
-              </button>
-            </section>
-          )}
-
-          {step === 2 && (
-            <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-              <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Select Your Server Location</h2>
-              <div className="flex justify-center space-x-8 mb-8">
-                <button
-                  className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
-                  onClick={() => handleSelectLocation('New York')}
-                >
-                  New York
-                </button>
-                <button
-                  className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
-                  onClick={() => handleSelectLocation('Los Angeles')}
-                >
-                  Los Angeles
-                </button>
-                <button
-                  className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
-                  onClick={() => handleSelectLocation('London')}
-                >
-                  London
-                </button>
+              <div className="bg-gray-700 p-6 rounded-lg shadow-md text-left">
+                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Fast Response Times</h3>
+                <p className="text-gray-300">We pride ourselves on fast response times to keep your applications running smoothly.</p>
               </div>
-            </section>
-          )}
-
-          {step === 3 && (
-            <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-              <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Select Your CPU Type</h2>
-              <div className="flex justify-center space-x-8 mb-8">
-                <button
-                  className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
-                  onClick={() => handleSelectCpuType('Shared')}
-                >
-                  Shared CPU
-                </button>
-                <button
-                  className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
-                  onClick={() => handleSelectCpuType('Dedicated')}
-                >
-                  Dedicated CPU
-                </button>
+              <div className="bg-gray-700 p-6 rounded-lg shadow-md text-left">
+                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Reliability</h3>
+                <p className="text-gray-300">Our infrastructure is designed for reliability, ensuring consistent performance for your projects.</p>
               </div>
-            </section>
-          )}
-
-          {step === 4 && selectedCpuType === 'Shared' && (
-            <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-              <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Select Your Shared CPU Plan</h2>
-              <div className="flex justify-center flex-wrap gap-4 mb-8">
-                {sharedPlans.map((plan, index) => (
-                  <div key={index} className="bg-gray-700 p-4 rounded-lg shadow-md w-80 text-left">
-                    <h3 className="text-xl font-semibold text-yellow-400 mb-2">{plan.name}</h3>
-                    <p className="text-gray-300 mb-2">{plan.description}</p>
-                    <p className="text-gray-300">{plan.specifications}</p>
-                    <button
-                      className="block mt-4 bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
-                      onClick={() => handleSelectPlan(plan)}
-                    >
-                      Select Plan
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {step === 4 && selectedCpuType === 'Dedicated' && (
-            <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-              <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Select Your Dedicated CPU Plan</h2>
-              <div className="flex justify-center flex-wrap gap-4 mb-8">
-                {dedicatedPlans.map((plan, index) => (
-                  <div key={index} className="bg-gray-700 p-4 rounded-lg shadow-md w-80 text-left">
-                    <h3 className="text-xl font-semibold text-yellow-400 mb-2">{plan.name}</h3>
-                    <p className="text-gray-300 mb-2">{plan.description}</p>
-                    <p className="text-gray-300">{plan.specifications}</p>
-                    <button
-                      className="block mt-4 bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
-                      onClick={() => handleSelectPlan(plan)}
-                    >
-                      Select Plan
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {step === 5 && (
-            <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-              <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Review Your Selections</h2>
-              <div className="text-left text-gray-300 mb-8">
-                <p><strong>Server Name:</strong> {serverName}</p>
-                <p><strong>Location:</strong> {selectedLocation}</p>
-                <p><strong>CPU Type:</strong> {selectedCpuType}</p>
-                <p><strong>Plan:</strong> {selectedPlan.name}</p>
-              </div>
-              <button
-                className="bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg hover:bg-yellow-500 transition duration-300"
-                onClick={handleSubmit}
-              >
-                Deploy VPS
-              </button>
-            </section>
-          )}
-
-          {/* Final VPS creation confirmation */}
-          {step === 6 && (
-            <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-              <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Your VPS Has Been Created!</h2>
-              <div className="text-left text-gray-300">
-                <p><strong>Server Name:</strong> {serverName}</p>
-                <p><strong>Location:</strong> {selectedLocation}</p>
-                <p><strong>CPU Type:</strong> {selectedCpuType}</p>
-                <p><strong>Plan:</strong> {selectedPlan.name}</p>
-                <p><strong>IPv4 Address:</strong> {ipv4Address}</p>
-              </div>
-            </section>
-          )}
-        </>
+            </div>
+          </section>
+        </section>
       )}
-
-      {/* Footer */}
-      <footer className="mt-16 mb-4 text-center text-gray-500 text-sm">
-        <p>&copy; 2019 - 2024 - All Rights Reserved. Made with ❤️ by LylaNodes</p>
-        <div className="mt-4 flex justify-center space-x-4">
-          <a href="#" className="hover:text-yellow-400">Privacy Policy</a>
-          <a href="#" className="hover:text-yellow-400">Terms of Service</a>
-          <a href="#" className="hover:text-yellow-400">Contact Us</a>
-        </div>
-      </footer>
     </main>
   );
 };

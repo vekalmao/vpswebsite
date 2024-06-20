@@ -3,21 +3,13 @@ import React from 'react'; // Import React
 export default function Home() {
   const [step, setStep] = React.useState(1); // Using React.useState instead of useState
 
-  const handleCreateCloud = () => {
-    setStep(2); // Proceed to step 2 on button click
-  };
-
-  const handlePreviousStep = () => {
-    setStep(1); // Go back to step 1
-  };
-
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-10 bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
       {/* Header */}
       <header className="w-full max-w-5xl flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold">LylaNodes</h1>
-          <p className="text-sm">/ VirtuHost</p>
+          <p className="text-sm">/VirtuHost</p>
         </div>
         <nav>
           <ul className="flex space-x-4">
@@ -37,7 +29,7 @@ export default function Home() {
         {/* Create Cloud Button */}
         {step === 1 && (
           <button
-            onClick={handleCreateCloud}
+            onClick={() => setStep(2)} // Proceed to step 2 on button click
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300"
           >
             Create Cloud Server
@@ -49,7 +41,7 @@ export default function Home() {
           <div className="text-left">
             <h3 className="text-blue-500 text-xl font-semibold mb-4">Let's get your new cloud server setup</h3>
             <button
-              onClick={handlePreviousStep}
+              onClick={() => setStep(1)} // Go back to step 1
               className="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-md shadow-md mr-4 transition duration-300"
             >
               Previous

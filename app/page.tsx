@@ -73,11 +73,6 @@ const Home = () => {
     return `${ipOctet()}.${ipOctet()}.${ipOctet()}.${ipOctet()}`;
   };
 
-  // Function to handle starting the VPS creation process
-  const handleCreateCloudVPS = () => {
-    setStep(1); // Move to the registration form step
-  };
-
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
       {/* Header and Navigation */}
@@ -155,14 +150,6 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Create Cloud VPS Button */}
-          <button
-            className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
-            onClick={handleCreateCloudVPS}
-          >
-            Create Cloud VPS
-          </button>
-
           {/* Our Features */}
           <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-left">
             <h2 className="text-3xl font-semibold mb-4 text-yellow-400">Our Features</h2>
@@ -173,156 +160,145 @@ const Home = () => {
               </div>
               <div className="bg-gray-700 p-6 rounded-lg shadow-md text-left">
                 <h3 className="text-xl font-semibold mb-2 text-yellow-400">Fast Response Times</h3>
-                <p className="text-gray-300">We pride ourselves on fast response times to keep your applications running smoothly.</p>
+                <p className="text-gray-300">Our servers are optimized for quick response times to keep your applications running smoothly.</p>
               </div>
               <div className="bg-gray-700 p-6 rounded-lg shadow-md text-left">
-                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Reliability</h3>
-                <p className="text-gray-300">Our infrastructure is designed for reliability, ensuring consistent performance for your projects.</p>
+                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Scalable Infrastructure</h3>
+                <p className="text-gray-300">Easily scale your infrastructure as your business grows with our flexible hosting solutions.</p>
               </div>
             </div>
+          </section>
+
+          {/* Setup Process */}
+          <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md text-left">
+            <h2 className="text-3xl font-semibold mb-4 text-yellow-400">Setup Your VPS</h2>
+            {/* Step 1: Save Server Name */}
+            {step === 1 && (
+              <div className="mb-8">
+                <label className="block text-left mb-2 text-gray-300">Server Name:</label>
+                <input
+                  type="text"
+                  className="border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 w-full"
+                  value={serverName}
+                  onChange={(e) => setServerName(e.target.value)}
+                />
+                <button
+                  className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300 ml-2 mt-4"
+                  onClick={handleSaveServerName}
+                >
+                  Save
+                </button>
+              </div>
+            )}
+
+            {/* Step 2: Select Location */}
+            {step === 2 && (
+              <div className="mb-8">
+                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Select Location:</h3>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <button
+                    className={`border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 ${selectedLocation === 'New York' ? 'bg-yellow-400 text-gray-900' : ''}`}
+                    onClick={() => handleSelectLocation('New York')}
+                  >
+                    New York
+                  </button>
+                  <button
+                    className={`border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 ${selectedLocation === 'San Francisco' ? 'bg-yellow-400 text-gray-900' : ''}`}
+                    onClick={() => handleSelectLocation('San Francisco')}
+                  >
+                    San Francisco
+                  </button>
+                  <button
+                    className={`border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 ${selectedLocation === 'London' ? 'bg-yellow-400 text-gray-900' : ''}`}
+                    onClick={() => handleSelectLocation('London')}
+                  >
+                    London
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 3: Select CPU Type */}
+            {step === 3 && (
+              <div className="mb-8">
+                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Select CPU Type:</h3>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <button
+                    className={`border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 ${selectedCpuType === 'Intel' ? 'bg-yellow-400 text-gray-900' : ''}`}
+                    onClick={() => handleSelectCpuType('Intel')}
+                  >
+                    Intel
+                  </button>
+                  <button
+                    className={`border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 ${selectedCpuType === 'AMD' ? 'bg-yellow-400 text-gray-900' : ''}`}
+                    onClick={() => handleSelectCpuType('AMD')}
+                  >
+                    AMD
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 4: Select Plan */}
+            {step === 4 && (
+              <div className="mb-8">
+                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Select Plan:</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {sharedPlans.map((plan, index) => (
+                    <div key={index} className="bg-gray-900 rounded-lg p-4 shadow-md text-left">
+                      <h4 className="text-lg font-semibold mb-2 text-yellow-400">{plan.name}</h4>
+                      <p className="text-gray-300 mb-2">{plan.description}</p>
+                      <p className="text-gray-400">{plan.specifications}</p>
+                      <button
+                        className={`mt-4 bg-yellow-400 text-gray-900 px-3 py-1 rounded-lg hover:bg-yellow-500 transition duration-300`}
+                        onClick={() => handleSelectPlan(plan)}
+                      >
+                        Select
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Step 5: Confirm and Create */}
+            {step === 5 && (
+              <div className="mb-8">
+                <h3 className="text-xl font-semibold mb-2 text-yellow-400">Confirm Selections:</h3>
+                <div className="flex flex-col items-center">
+                  <p className="text-gray-300 mb-2"><span className="font-semibold">Server Name:</span> {serverName}</p>
+                  <p className="text-gray-300 mb-2"><span className="font-semibold">Location:</span> {selectedLocation}</p>
+                  <p className="text-gray-300 mb-2"><span className="font-semibold">CPU Type:</span> {selectedCpuType}</p>
+                  <p className="text-gray-300 mb-2"><span className="font-semibold">Plan:</span> {selectedPlan.name}</p>
+                  <button
+                    className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
+                    onClick={handleSubmit}
+                  >
+                    Create VPS
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 6: VPS Created */}
+            {step === 6 && (
+              <div>
+                <h3 className="text-xl font-semibold mb-2 text-yellow-400">VPS Successfully Created!</h3>
+                <p className="text-gray-300 mb-2">Server Name: {serverName}</p>
+                <p className="text-gray-300 mb-2">Location: {selectedLocation}</p>
+                <p className="text-gray-300 mb-2">CPU Type: {selectedCpuType}</p>
+                <p className="text-gray-300 mb-2">Plan: {selectedPlan.name}</p>
+                <p className="text-gray-300 mb-2">IPv4 Address: {ipv4Address}</p>
+              </div>
+            )}
           </section>
         </section>
       )}
 
-      {/* Step 1: Save Server Name */}
-      {step === 1 && (
-        <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Step 1: Save Server Name</h2>
-          <div className="mb-4">
-            <label className="block text-left mb-2 text-gray-300">Server Name:</label>
-            <input
-              type="text"
-              className="border border-gray-700 bg-gray-900 text-white rounded-lg px-3 py-2 w-full"
-              value={serverName}
-              onChange={(e) => setServerName(e.target.value)}
-            />
-          </div>
-          <button
-            className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
-            onClick={handleSaveServerName}
-          >
-            Save Server Name
-          </button>
-        </section>
-      )}
-
-      {/* Step 2: Select Location */}
-      {step === 2 && (
-        <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Step 2: Select Location</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <button
-              className={`bg-gray-700 text-white px-4 py-2 rounded-lg ${selectedLocation === 'USA' ? 'bg-yellow-400' : 'hover:bg-gray-600'}`}
-              onClick={() => handleSelectLocation('USA')}
-            >
-              USA
-            </button>
-            <button
-              className={`bg-gray-700 text-white px-4 py-2 rounded-lg ${selectedLocation === 'Europe' ? 'bg-yellow-400' : 'hover:bg-gray-600'}`}
-              onClick={() => handleSelectLocation('Europe')}
-            >
-              Europe
-            </button>
-            <button
-              className={`bg-gray-700 text-white px-4 py-2 rounded-lg ${selectedLocation === 'Asia' ? 'bg-yellow-400' : 'hover:bg-gray-600'}`}
-              onClick={() => handleSelectLocation('Asia')}
-            >
-              Asia
-            </button>
-          </div>
-        </section>
-      )}
-
-      {/* Step 3: Select CPU Type */}
-      {step === 3 && (
-        <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Step 3: Select CPU Type</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <button
-              className={`bg-gray-700 text-white px-4 py-2 rounded-lg ${selectedCpuType === 'Intel' ? 'bg-yellow-400' : 'hover:bg-gray-600'}`}
-              onClick={() => handleSelectCpuType('Intel')}
-            >
-              Intel
-            </button>
-            <button
-              className={`bg-gray-700 text-white px-4 py-2 rounded-lg ${selectedCpuType === 'AMD' ? 'bg-yellow-400' : 'hover:bg-gray-600'}`}
-              onClick={() => handleSelectCpuType('AMD')}
-            >
-              AMD
-            </button>
-          </div>
-        </section>
-      )}
-
-      {/* Step 4: Select Plan */}
-      {step === 4 && (
-        <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Step 4: Select Plan</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {sharedPlans.map((plan, index) => (
-              <div key={index} className="bg-gray-700 rounded-lg p-6 text-left shadow-md">
-                <h3 className="text-xl font-semibold mb-2 text-yellow-400">{plan.name}</h3>
-                <p className="text-gray-300 mb-2">{plan.description}</p>
-                <p className="text-gray-300">{plan.specifications}</p>
-                <button
-                  className={`block mt-4 bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300`}
-                  onClick={() => handleSelectPlan(plan)}
-                >
-                  Select Plan
-                </button>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Step 5: Review and Submit */}
-      {step === 5 && (
-        <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">Step 5: Review and Submit</h2>
-          <div className="mb-8">
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Server Name:</h3>
-            <p className="text-gray-300 mb-2">{serverName}</p>
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Location:</h3>
-            <p className="text-gray-300 mb-2">{selectedLocation}</p>
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">CPU Type:</h3>
-            <p className="text-gray-300 mb-2">{selectedCpuType}</p>
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Selected Plan:</h3>
-            <p className="text-gray-300 mb-2">{selectedPlan.name}</p>
-            <p className="text-gray-300 mb-2">{selectedPlan.description}</p>
-            <p className="text-gray-300">{selectedPlan.specifications}</p>
-          </div>
-          <button
-            className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-300"
-            onClick={handleSubmit}
-          >
-            Create VPS
-          </button>
-        </section>
-      )}
-
-      {/* Step 6: VPS Created */}
-      {step === 6 && (
-        <section className="w-full max-w-5xl bg-gray-800 rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-yellow-400">VPS Created Successfully!</h2>
-          <div className="mb-8">
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Server Name:</h3>
-            <p className="text-gray-300 mb-2">{serverName}</p>
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Location:</h3>
-            <p className="text-gray-300 mb-2">{selectedLocation}</p>
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">CPU Type:</h3>
-            <p className="text-gray-300 mb-2">{selectedCpuType}</p>
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">Selected Plan:</h3>
-            <p className="text-gray-300 mb-2">{selectedPlan.name}</p>
-            <p className="text-gray-300 mb-2">{selectedPlan.description}</p>
-            <p className="text-gray-300">{selectedPlan.specifications}</p>
-            <h3 className="text-xl font-semibold mb-2 text-yellow-400">IPv4 Address:</h3>
-            <p className="text-gray-300 mb-2">{ipv4Address}</p>
-          </div>
-          <p className="text-gray-300">You can now access your VPS with the provided details.</p>
-        </section>
-      )}
-
+      {/* Footer */}
+      <footer className="w-full max-w-5xl text-center py-8">
+        <p className="text-gray-300">© 2024 LylaNodes. All rights reserved.</p>
+      </footer>
     </main>
   );
 };

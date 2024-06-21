@@ -7,7 +7,7 @@ const Home = () => {
   const [serverName, setServerName] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedCpuType, setSelectedCpuType] = useState('');
-  const [selectedPlan, setSelectedPlan] = useState(null); // null until a plan is selected
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null); // null until a plan is selected
   const [vpsCreated, setVpsCreated] = useState(false);
   const [ipv4Address, setIpv4Address] = useState('');
   const [selectedUbuntuVersion, setSelectedUbuntuVersion] = useState('');
@@ -23,17 +23,17 @@ const Home = () => {
     setStep(2);
   };
 
-  const handleSelectLocation = (location) => {
+  const handleSelectLocation = (location: string) => {
     setSelectedLocation(location);
     setStep(3);
   };
 
-  const handleSelectCpuType = (cpuType) => {
+  const handleSelectCpuType = (cpuType: string) => {
     setSelectedCpuType(cpuType);
     setStep(4);
   };
 
-  const handleSelectPlan = (plan) => {
+  const handleSelectPlan = (plan: string) => {
     setSelectedPlan(plan);
     setStep(5);
   };
@@ -50,7 +50,7 @@ const Home = () => {
     return `${ipOctet()}.${ipOctet()}.${ipOctet()}.${ipOctet()}`;
   };
 
-  const handleSignUp = (e) => {
+  const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Simulate sign-up logic - set isSignedUp to true and clear sign-up form
     setIsSignedUp(true);
@@ -58,7 +58,7 @@ const Home = () => {
     alert('Sign up successful!');
   };
 
-  const handleSignIn = (e) => {
+  const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Simulate sign-in logic - set isSignedUp to true and clear sign-in form
     setIsSignedUp(true);
@@ -144,6 +144,102 @@ const Home = () => {
         </section>
       )}
 
+      {showSignUpForm && (
+        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-80 z-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
+            <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+            <form onSubmit={handleSignUp}>
+              <div className="mb-4">
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-yellow-400 focus:ring focus:ring-yellow-400 focus:ring-opacity-50"
+                  required
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-yellow-400 focus:ring focus:ring-yellow-400 focus:ring-opacity-50"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-yellow-400 focus:ring focus:ring-yellow-400 focus:ring-opacity-50"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="mt-6">
+                <button
+                  type="submit"
+                  className="w-full bg-yellow-400 text-white py-2 px-4 rounded-md hover:bg-yellow-500 transition-colors"
+                >
+                  Sign Up
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {showSignInForm && (
+        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-80 z-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
+            <h2 className="text-2xl font-bold mb-4">Sign In</h2>
+            <form onSubmit={handleSignIn}>
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-yellow-400 focus:ring focus:ring-yellow-400 focus:ring-opacity-50"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-yellow-400 focus:ring focus:ring-yellow-400 focus:ring-opacity-50"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="mt-6">
+                <button
+                  type="submit"
+                  className="w-full bg-yellow-400 text-white py-2 px-4 rounded-md hover:bg-yellow-500 transition-colors"
+                >
+                  Sign In
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       {isSignedUp && (
         <section className="w-full max-w-5xl p-8 text-center">
           <h2 className="text-5xl font-extrabold mb-8 text-white">Affordable VPS Hosting</h2>
@@ -163,7 +259,7 @@ const Home = () => {
             </div>
           </div>
           <button
-            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
+            className="bg-yellow-400 text-white py-2 px-4 rounded-md hover:bg-yellow-500 transition-colors"
             onClick={() => setStep(1)}
           >
             Create Cloud VPS
@@ -173,11 +269,13 @@ const Home = () => {
 
       {step === 1 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Let&apos;s Get Your New Cloud Server Setup</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Let's Get Your New Cloud Server Setup</h2>
           <div className="mb-4">
-            <label className="block text-left mb-2 text-blue-600">Enter a name for your cloud server:</label>
+            <label htmlFor="serverName" className="block text-left mb-2 text-blue-600">Enter a name for your cloud server:</label>
             <input 
               type="text" 
+              id="serverName" 
+              name="serverName"
               className="border border-gray-300 rounded-lg px-3 py-2 w-full text-blue-600" 
               value={serverName} 
               onChange={(e) => setServerName(e.target.value)} 
@@ -256,115 +354,35 @@ const Home = () => {
 
       {step === 5 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Review and Submit</h2>
-          <div className="mb-4 text-left text-blue-600">
-            <p><strong>Server Name:</strong> {serverName}</p>
-            <p><strong>Location:</strong> {selectedLocation}</p>
-            <p><strong>CPU Type:</strong> {selectedCpuType}</p>
-            <p><strong>Plan:</strong> {selectedPlan}</p>
-          </div>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Summary</h2>
+          <p className="text-gray-600 mb-4">Server Name: {serverName}</p>
+          <p className="text-gray-600 mb-4">Location: {selectedLocation}</p>
+          <p className="text-gray-600 mb-4">CPU Type: {selectedCpuType}</p>
+          <p className="text-gray-600 mb-4">Plan: {selectedPlan}</p>
           <button 
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
             onClick={handleSubmit}
           >
-            Create VPS
+            Create My VPS
           </button>
         </section>
       )}
 
       {step === 6 && (
         <section className="w-full max-w-5xl bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Setup Process Complete</h2>
-          <p className="text-lg text-gray-600 mb-4">Your VPS has been successfully deployed!</p>
-          <div className="mb-4 text-left text-blue-600">
-            <p><strong>Server Name:</strong> {serverName}</p>
-            <p><strong>Location:</strong> {selectedLocation}</p>
-            <p><strong>CPU Type:</strong> {selectedCpuType}</p>
-            <p><strong>Plan:</strong> {selectedPlan}</p>
-            <p><strong>IPv4 Address:</strong> {ipv4Address}</p>
-          </div>
-          <p className="text-lg text-gray-600 mb-4">You can now SSH into your VPS using the following command:</p>
-          <pre className="bg-gray-800 rounded-lg p-4 text-sm text-gray-300">ssh {username}@{ipv4Address}</pre>
+          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Congratulations! Your VPS has been created.</h2>
+          <p className="text-gray-600 mb-4">Server Name: {serverName}</p>
+          <p className="text-gray-600 mb-4">Location: {selectedLocation}</p>
+          <p className="text-gray-600 mb-4">IPv4 Address: {ipv4Address}</p>
+          <p className="text-gray-600 mb-4">Ubuntu Version: {selectedUbuntuVersion}</p>
+          <p className="text-gray-600 mb-4">Debian Version: {selectedDebianVersion}</p>
+          <p className="text-gray-600 mb-4">You can now connect using SSH with username: {username}</p>
         </section>
       )}
 
-      {showSignUpForm && !isSignedUp && (
-        <section className="w-full max-w-xs bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Sign Up</h2>
-          <form onSubmit={handleSignUp} className="space-y-4">
-            <div>
-              <label htmlFor="signup-username" className="block text-left mb-2 text-blue-600">Username:</label>
-              <input
-                type="text"
-                id="signup-username"
-                className="border border-gray-300 rounded-lg px-3 py-2 w-full text-blue-600"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="signup-email" className="block text-left mb-2 text-blue-600">Email:</label>
-              <input
-                type="email"
-                id="signup-email"
-                className="border border-gray-300 rounded-lg px-3 py-2 w-full text-blue-600"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="signup-password" className="block text-left mb-2 text-blue-600">Password:</label>
-              <input
-                type="password"
-                id="signup-password"
-                className="border border-gray-300 rounded-lg px-3 py-2 w-full text-blue-600"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-            >
-              Sign Up
-            </button>
-          </form>
-        </section>
-      )}
-
-      {showSignInForm && !isSignedUp && (
-        <section className="w-full max-w-xs bg-white rounded-lg p-8 shadow-md mb-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Sign In</h2>
-          <form onSubmit={handleSignIn} className="space-y-4">
-            <div>
-              <label htmlFor="signin-username" className="block text-left mb-2 text-blue-600">Username:</label>
-              <input
-                type="text"
-                id="signin-username"
-                className="border border-gray-300 rounded-lg px-3 py-2 w-full text-blue-600"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="signin-password" className="block text-left mb-2 text-blue-600">Password:</label>
-              <input
-                type="password"
-                id="signin-password"
-                className="border border-gray-300 rounded-lg px-3 py-2 w-full text-blue-600"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-            >
-              Sign In
-            </button>
-          </form>
-        </section>
-      )}
+      <footer className="w-full max-w-5xl flex items-center justify-center py-8">
+        <p className="text-gray-300 text-center">&copy; 2024 LylaNodes. All rights reserved.</p>
+      </footer>
     </main>
   );
 };
